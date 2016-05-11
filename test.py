@@ -23,23 +23,27 @@ def show_die(d,a):
     if (d[1].get()) == 1:
         return d
     if a == 1:
-        return (Checkbutton(root, image=dieImg1, height=110, width=110, bg='green', variable=d[1]), d[1])
+        return (Checkbutton(root, image=dieImg1, selectimage=dieImg1_h, height=110, width=110, bg='green', variable=d[1], ), d[1])
     elif a == 2:
-        return (Checkbutton(root, image=dieImg2, height=110, width=110, bg='green', variable=d[1]), d[1])
+        return (Checkbutton(root, image=dieImg2, selectimage=dieImg2_h, height=110, width=110, bg='green', variable=d[1]), d[1])
     elif a == 3:
-        return (Checkbutton(root, image=dieImg3, height=110, width=110, bg='green', variable=d[1]), d[1])
+        return (Checkbutton(root, image=dieImg3, selectimage=dieImg3_h, height=110, width=110, bg='green', variable=d[1]), d[1])
     elif a == 4:
-        return (Checkbutton(root, image=dieImg4, height=110, width=110, bg='green', variable=d[1]), d[1])
+        return (Checkbutton(root, image=dieImg4, selectimage=dieImg4_h, height=110, width=110, bg='green', variable=d[1]), d[1])
     elif a == 5:
-        return (Checkbutton(root, image=dieImg5, height=110, width=110, bg='green', variable=d[1]), d[1])
+        return (Checkbutton(root, image=dieImg5, selectimage=dieImg5_h, height=110, width=110, bg='green', variable=d[1]), d[1])
     elif a == 6:
-        return (Checkbutton(root, image=dieImg6, height=110, width=110, bg='green', variable=d[1]), d[1])
-
+        return (Checkbutton(root, image=dieImg6, selectimage=dieImg6_h, height=110, width=110, bg='green', variable=d[1]), d[1])
+def on_click(self,event):
+    if self.image_names() == dieImg1:
+        self.image = dieImg1_h
+    elif self.image_names() == dieImg1_h:
+        self.image = dieImg1
 root = Tk()
 root.configure(background='Green')
 TheLabel = Label(root, text='testing, one, two, three')
 TheLabel.configure(background='Green')
-root.geometry("%dx%d+0+0" %(800,600))
+root.geometry("%dx%d+0+0" %(1024,780))
 dieImg1 = PhotoImage(file=os.path.join('DiceTextures', 'white', '1.png'))
 dieImg2 = PhotoImage(file=os.path.join('DiceTextures', 'white', '2.png'))
 dieImg3 = PhotoImage(file=os.path.join('DiceTextures', 'white', '3.png'))
@@ -55,7 +59,8 @@ dieImg5_h = PhotoImage(file=os.path.join('DiceTextures', 'blue', '5.png'))
 dieImg6_h = PhotoImage(file=os.path.join('DiceTextures', 'blue', '6.png'))
 
 
-rollButton = Button(text='Roll the dice', height=4,width=10)
+rollButton = Button(text='Roll the dice', height = 1,width = 15,padx=10,pady=10)
+rollButton
 rollsLeft = Label(text='Throws left:')
 
 
@@ -78,14 +83,16 @@ def generate_dice():
     dice.append((die5,var4))
     return dice
 dice = generate_dice()
+padCanvas = Canvas(root,height=10,width=0,bd=0,highlightthickness=0,relief='ridge')
 #TheLabel.pack()
-dice[0][0].grid(row=1,column=0)
-dice[1][0].grid(row=2,column=0)
-dice[2][0].grid(row=3,column=0)
-dice[3][0].grid(row=4,column=0)
-dice[4][0].grid(row=5,column=0)
-rollButton.grid(row=4,column=1)
+dice[0][0].grid(row=2,column=0)
+dice[1][0].grid(row=3,column=0)
+dice[2][0].grid(row=4,column=0)
+dice[3][0].grid(row=5,column=0)
+dice[4][0].grid(row=6,column=0)
+rollButton.grid(row=1,column=0)
 rollsLeft.grid(row=4,column=2)
+padCanvas.grid(row=0,column=0)
 rollButton.bind("<Button-1>",lambda event: roll_dice(event,dice))
 root.mainloop()
 
