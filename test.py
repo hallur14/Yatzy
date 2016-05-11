@@ -10,28 +10,30 @@ def roll_dice(self,dice):
     die3 = show_die(dice[2],throw[2])
     die4 = show_die(dice[3],throw[3])
     die5 = show_die(dice[4],throw[4])
-    die1.grid(row=1, column=0)
-    die2.grid(row=1, column=1)
-    die3.grid(row=1, column=2)
-    die4.grid(row=3, column=0)
-    die5.grid(row=3, column=1)
+    die1[0].grid(row=1, column=0)
+    die2[0].grid(row=2, column=0)
+    die3[0].grid(row=3, column=0)
+    die4[0].grid(row=4, column=0)
+    die5[0].grid(row=5, column=0)
 
 def show_die(d,a):
     print(type(d[1].get()))
     if(d[1].get()) == True:
         return d
+    if (d[1].get()) == 1:
+        return d
     if a == 1:
-        return Checkbutton(root, image=dieImg1, height=150, width=150, bg='green')
+        return (Checkbutton(root, image=dieImg1, height=110, width=110, bg='green', variable=d[1]), d[1])
     elif a == 2:
-        return Checkbutton(root, image=dieImg2, height=150, width=150, bg='green')
+        return (Checkbutton(root, image=dieImg2, height=110, width=110, bg='green', variable=d[1]), d[1])
     elif a == 3:
-        return Checkbutton(root, image=dieImg3, height=150, width=150, bg='green')
+        return (Checkbutton(root, image=dieImg3, height=110, width=110, bg='green', variable=d[1]), d[1])
     elif a == 4:
-        return Checkbutton(root, image=dieImg4, height=150, width=150, bg='green')
+        return (Checkbutton(root, image=dieImg4, height=110, width=110, bg='green', variable=d[1]), d[1])
     elif a == 5:
-        return Checkbutton(root, image=dieImg5, height=150, width=150, bg='green')
+        return (Checkbutton(root, image=dieImg5, height=110, width=110, bg='green', variable=d[1]), d[1])
     elif a == 6:
-        return Checkbutton(root, image=dieImg6, height=150, width=150, bg='green')
+        return (Checkbutton(root, image=dieImg6, height=110, width=110, bg='green', variable=d[1]), d[1])
 
 root = Tk()
 root.configure(background='Green')
@@ -63,11 +65,11 @@ def generate_dice():
     var2 = BooleanVar()
     var3 = BooleanVar()
     var4 = BooleanVar()
-    die1 = Checkbutton(root, image = dieImg1,height=150, width=150,bg='green',  variable  = var0)
-    die2 = Checkbutton(root, image = dieImg2,height=150, width=150,bg='green', variable  = var1)
-    die3 = Checkbutton(root, image = dieImg3,height=150, width=150,bg='green', variable  = var2)
-    die4 = Checkbutton(root, image = dieImg4,height=150, width=150,bg='green', variable  = var3)
-    die5 = Checkbutton(root, image = dieImg5,height=150, width=150,bg='green', variable  = var4)
+    die1 = Checkbutton(root, image = dieImg1,height=110, width=110,bg='green',  variable  = var0)
+    die2 = Checkbutton(root, image = dieImg2,height=110, width=110,bg='green', variable  = var1)
+    die3 = Checkbutton(root, image = dieImg3,height=110, width=110,bg='green', variable  = var2)
+    die4 = Checkbutton(root, image = dieImg4,height=110, width=110,bg='green', variable  = var3)
+    die5 = Checkbutton(root, image = dieImg5,height=110, width=110,bg='green', variable  = var4)
     dice = []
     dice.append((die1,var0))
     dice.append((die2,var1))
@@ -78,10 +80,10 @@ def generate_dice():
 dice = generate_dice()
 #TheLabel.pack()
 dice[0][0].grid(row=1,column=0)
-dice[1][0].grid(row=1,column=1)
-dice[2][0].grid(row=1,column=2)
-dice[3][0].grid(row=3,column=0)
-dice[4][0].grid(row=3,column=1)
+dice[1][0].grid(row=2,column=0)
+dice[2][0].grid(row=3,column=0)
+dice[3][0].grid(row=4,column=0)
+dice[4][0].grid(row=5,column=0)
 rollButton.grid(row=4,column=1)
 rollsLeft.grid(row=4,column=2)
 rollButton.bind("<Button-1>",lambda event: roll_dice(event,dice))
