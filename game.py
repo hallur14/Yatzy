@@ -28,30 +28,32 @@ class MainWindow(tk.Frame):
         self.player1 = Player()
 
         self.infoMessage = StringVar()
-        self.infoMessage.set('Press roll to get your first set of Dices')
+        self.infoMessage.set('Press Roll to get your dice')
+        self.turnMessage = StringVar()
+        self.turnMessage.set('Turns left: ' + str(self.player1.throwsLeft+1))
 
-        infoLabel1 = Label(self, textvariable=self.infoMessage)
-        rollsLeft = Label(text='Throws left: ')
-        infoLabel1.place(x=150, y=10)
-        rollBtn = Button(self, text='Roll', height=1, width=14, command=self.roll)
+        #Labels
+        infoLabel1 = Label(self, textvariable=self.infoMessage, font=('Verdana', 12))
+        infoLabel1.place(x=240, y=15)
+        turnLabell = Label(self, textvariable=self.turnMessage, font=('Verdana', 12))
+        turnLabell.place(x=40, y=700)
+
+        rollBtn = Button(self, text='Roll', height=1, width=15, command=self.roll, font=('Verdana', 14))
         rollBtn.place(x=40, y=10)
-        rollsLeft.place(x=150, y=30)
 
 
     def displayDice(self):
         self.infoMessage.set('Select which dies to keep and Roll again')
+        self.turnMessage.set('Turns left: ' + str(self.player1.throwsLeft+1))
         for n, i in enumerate(self.player1.currentDice):
             var = BooleanVar()
             var.set(int(i.hold))
-            print(i.hold,var.get())
+            #print(i.hold,var.get())
 
             check = Checkbutton(self, image=self.dice[i.value], selectimage=self.diceH[i.value], height=110, width=110,
                                 variable = var, command = i.switch)
-            #varList.append(var)
-
-            check.place(x=20, y=(n*120)+40)
+            check.place(x=20, y=(n*120)+70)
             check.var = var
-            #var.set(i.hold)
 
     def gen_dice_images(self):
         self.dice = {
@@ -97,12 +99,14 @@ class Player(object):
 
     def PlayerRoll(self):
         for i in self.currentDice:
-            print(i.hold)
+            #print(i.hold)
             if not i.hold:
                 i.value = i.getOneNum()
         self.throwsLeft -= 1
-        print(YatziValidor.aces(self))
+        #print(YatziValidor.aces(self))
+
 class YatziValidor(object):
+
     NUMBER_OF_TURNS = 15
 
     def aces(self):
@@ -124,34 +128,27 @@ class YatziValidor(object):
         return sum(i.value for i in self.currentDice if i.value == 6)
 
     def pair(self):
+        return False
 
     def twoPair(self):
+        return False
 
     def threeOfaKind(self):
+        return False
 
     def fourOfaKind(self):
+        return False
 
     def littleRow(self):
         return (self.currentDice == list(range(1, 6)))
+
     def big_row(self):
         (self.currentDice == list(range(2, 7)))
+
     def fullHouse(self):
+        return False
 
-
-'''
-
-Player1 = Player()
-for i in Player1.currentDice:
-   print(i)
-
-'''
 app = game()
 app.geometry("%dx%d+0+0" %(1024,768))
 app.resizable(width=False, height=False)
 app.mainloop()
-
-
-
-
-
-
