@@ -1,6 +1,7 @@
 import tkinter as tk
-
-LARGE_FONT = ('Verdana', 12)
+from tkinter import *
+from random import randint
+import os
 
 class game(tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -10,20 +11,76 @@ class game(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
-        frame = StartPage(container, self)
-        self.frames[StartPage] = frame
+        frame = MainWindow(container, self)
+        self.frames[MainWindow] = frame
         frame.grid(row=0, sticky='nsew')
-        self.show_frame(StartPage)
+        self.show_frame(MainWindow)
 
     def show_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
 
-class StartPage(tk.Frame):
+class MainWindow(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Yatzy", font=LARGE_FONT)
-        label.pack(pady=10, padx=10)
+
+        self.gen_dice_images()
+        self.player1 = Player()
+
+        self.infoMessage = StringVar()
+        self.infoMessage.set('Press roll to get your first set of Dices')
+
+        infoLabel1 = Label(self, textvariable=self.infoMessage)
+        infoLabel1.place(x=150, y=10)
+        rollBtn = Button(self, text='Roll', height=1, width=14, command=self.displayDies)
+        rollBtn.place(x=40, y=10)
+
+
+    def displayDies(self):
+        self.infoMessage.set('Select which dies to keep and Roll again')
+
+        for n, i in enumerate(self.player1.currentDice):
+            check = Checkbutton(self, image=self.dice[i.value], selectimage=self.diceH[i.value], height=110, width=110)
+            check.place(x=20, y=(n*120)+40)
+
+    def gen_dice_images(self):
+        self.dice = {
+            i+1 : PhotoImage(file=os.path.join('DiceTextures', 'white', '%s.png' % (i+1)))
+            for i in range(6)
+        }
+        self.diceH = {
+            i+1 : PhotoImage(file=os.path.join('DiceTextures', 'blue', '%s.png' % (i+1)))
+            for i in range(6)
+        }
+
+
+
+class Die(object):
+    def __init__(self, id):
+        self.id = id
+        self.roll()
+
+    def roll(self):
+        self.value = randint(1, 6)
+        return self.value
+
+    def __str__(self):
+        return str(self.value)
+
+class Player(object):
+    def __init__(self):
+        self.score = 0
+        self.turnsLeft = 15
+        self.throwsLeft = 2
+        self.currentDice = []
+        self.selectedDice = []
+
+        for i in range(5):
+            self.currentDice.append(Die(i))
+
+#Player1 = Player()
+#for i in Player1.currentDice:
+#   print(i)
 
 app = game()
 app.geometry("%dx%d+0+0" %(1024,768))
