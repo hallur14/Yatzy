@@ -24,39 +24,54 @@ class MainWindow(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
+
         self.gen_dice_images()
         self.player1 = Player()
 
         #Label Messages
         self.infoMessage = StringVar()
-        self.infoMessage.set('Press Roll to get your dice!')
+        self.infoMessage.set('Press ROLL to get your dice!')
         self.turnMessage = StringVar()
-        self.turnMessage.set('You have ' + str(self.player1.throwsLeft+1) + ' remaining rolls this turn')
+        self.turnMessage.set('You have ' + str(self.player1.throwsLeft) + ' remaining rolls this turn')
 
         #Labels
         infoLabel1 = Label(self, textvariable=self.infoMessage, font=('Verdana', 12), fg="green")
         infoLabel1.place(x=240, y=25)
         turnLabell = Label(self, textvariable=self.turnMessage, font=('Verdana', 12))
-        turnLabell.place(x=40, y=700)
+        turnLabell.place(x=40, y=720)
 
-        self.rollBtn = Button(self, text='Roll', height=1, width=15, command=self.roll, font=('Verdana', 14), fg='white',
+        #This button rolls the dice and displays the dice afterwards
+        self.rollBtn = Button(self, text='ROLL', height=1, width=15, command=self.roll, font=('Verdana', 14), fg='white',
                          bg='brown')
         self.rollBtn.place(x=40, y=20)
 
+        #This button stops the current turn and sets remaing rolls to 0
+        self.stopBtn = Button(self, text='STOP', height=1, width=15, command=self.stop, font=('Verdana', 14), fg='white',
+                         bg='red')
+        self.stopBtn.place(x=40, y=60)
 
+    #This functions displays the state of the current dice
     def displayDice(self):
-        self.infoMessage.set('Select which dies to keep and Roll again')
-        self.turnMessage.set('You have ' + str(self.player1.throwsLeft+1) + ' remaining rolls this turn')
-        for n, i in enumerate(self.player1.currentDice):
-            var = BooleanVar()
-            var.set(int(i.hold))
-            #print(i.hold,var.get())
+        self.infoMessage.set('Select which dies to keep and ROLL again or press STOP')
 
-            check = Checkbutton(self, image=self.dice[i.value], selectimage=self.diceH[i.value], height=110, width=110,
-                                variable = var, command = i.switch)
-            check.place(x=35, y=(n*120)+80)
-            check.var = var
+        if self.player1.throwsLeft == 0:
+            self.turnMessage.set('You have ' + str(self.player1.throwsLeft) + ' remaining rolls this turn')
+            self.infoMessage.set('Now select an option on the scorecard')
+            for n, i in enumerate(self.player1.currentDice):
+                check = Checkbutton(self, image=self.dice[i.value], height=100, width=100)
+                check.place(x=35, y=(n*120)+115)
+        else:
+            self.turnMessage.set('You have ' + str(self.player1.throwsLeft) + ' remaining rolls this turn')
+            for n, i in enumerate(self.player1.currentDice):
+                var = BooleanVar()
+                var.set(int(i.hold))
 
+                check = Checkbutton(self, image=self.dice[i.value], selectimage=self.diceH[i.value], height=100,
+                                    width=100, variable = var, command = i.switch)
+                check.place(x=35, y=(n*120)+115)
+                check.var = var
+
+    #This functions creates a dictionary of textures used
     def gen_dice_images(self):
         self.dice = {
             i+1 : PhotoImage(file=os.path.join('DiceTextures', 'white', '%s.png' % (i+1)))
@@ -67,13 +82,25 @@ class MainWindow(tk.Frame):
             for i in range(6)
         }
 
+    #This function gets new die values for unmarked dice
     def roll(self):
-        if self.player1.throwsLeft < 0:
+        if not self.player1.throwsLeft == 0:
+            self.player1.PlayerRoll()
+
+        self.displayDice()
+
+        if self.player1.throwsLeft == 0:
             self.rollBtn.config(state='disabled')
             self.turnMessage.set('You are out off rolls this round!')
-        else:
-            self.player1.PlayerRoll()
+            for n, i in enumerate(self.player1.currentDice):
+                i.hold = False
             self.displayDice()
+
+    #This function stops the current turn and sets remaing rolls to 0
+    def stop(self):
+        self.player1.throwsLeft = 0
+        self.roll()
+        self.displayDice()
 
 class Die(object):
     def __init__(self, id):
@@ -96,7 +123,7 @@ class Player(object):
     def __init__(self):
         self.score = 0
         self.turnsLeft = 15
-        self.throwsLeft = 2
+        self.throwsLeft = 3
         self.currentDice = []
         self.selectedDice = []
 
@@ -113,7 +140,6 @@ class Player(object):
         #print(YatziValidor.aces(self))
 
 class YatziValidor(object):
-
     NUMBER_OF_TURNS = 15
 
     def aces(self):
