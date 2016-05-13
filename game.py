@@ -101,6 +101,41 @@ class Player(object):
             if not i.hold:
                 i.value = i.getOneNum()
         self.throwsLeft -= 1
+        print(YatziValidor.aces(self))
+class YatziValidor(object):
+    NUMBER_OF_TURNS = 15
+
+    def aces(self):
+        return sum(i.value for i in self.currentDice if i.value == 1)
+
+    def deuces(self):
+        return sum(i.value for i in self.currentDice if i.value == 2)
+
+    def threes(self):
+        return sum(i.value for i in self.currentDice if i.value == 3)
+
+    def fours(self):
+        return sum(i.value for i in self.currentDice if i.value == 4)
+
+    def fives(self):
+        return sum(i.value for i in self.currentDice if i.value == 5)
+
+    def sixes(self):
+        return sum(i.value for i in self.currentDice if i.value == 6)
+
+    def pair(self):
+
+    def twoPair(self):
+
+    def threeOfaKind(self):
+
+    def fourOfaKind(self):
+
+    def littleRow(self):
+        return (self.currentDice == list(range(1, 6)))
+    def big_row(self):
+        (self.currentDice == list(range(2, 7)))
+    def fullHouse(self):
 
 
 '''
