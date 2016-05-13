@@ -27,24 +27,26 @@ class MainWindow(tk.Frame):
         self.gen_dice_images()
         self.player1 = Player()
 
+        #Label Messages
         self.infoMessage = StringVar()
-        self.infoMessage.set('Press Roll to get your dice')
+        self.infoMessage.set('Press Roll to get your dice!')
         self.turnMessage = StringVar()
-        self.turnMessage.set('Turns left: ' + str(self.player1.throwsLeft+1))
+        self.turnMessage.set('You have ' + str(self.player1.throwsLeft+1) + ' remaining rolls this turn')
 
         #Labels
-        infoLabel1 = Label(self, textvariable=self.infoMessage, font=('Verdana', 12))
-        infoLabel1.place(x=240, y=15)
+        infoLabel1 = Label(self, textvariable=self.infoMessage, font=('Verdana', 12), fg="green")
+        infoLabel1.place(x=240, y=25)
         turnLabell = Label(self, textvariable=self.turnMessage, font=('Verdana', 12))
         turnLabell.place(x=40, y=700)
 
-        rollBtn = Button(self, text='Roll', height=1, width=15, command=self.roll, font=('Verdana', 14))
-        rollBtn.place(x=40, y=10)
+        self.rollBtn = Button(self, text='Roll', height=1, width=15, command=self.roll, font=('Verdana', 14), fg='white',
+                         bg='brown')
+        self.rollBtn.place(x=40, y=20)
 
 
     def displayDice(self):
         self.infoMessage.set('Select which dies to keep and Roll again')
-        self.turnMessage.set('Turns left: ' + str(self.player1.throwsLeft+1))
+        self.turnMessage.set('You have ' + str(self.player1.throwsLeft+1) + ' remaining rolls this turn')
         for n, i in enumerate(self.player1.currentDice):
             var = BooleanVar()
             var.set(int(i.hold))
@@ -52,7 +54,7 @@ class MainWindow(tk.Frame):
 
             check = Checkbutton(self, image=self.dice[i.value], selectimage=self.diceH[i.value], height=110, width=110,
                                 variable = var, command = i.switch)
-            check.place(x=20, y=(n*120)+70)
+            check.place(x=35, y=(n*120)+80)
             check.var = var
 
     def gen_dice_images(self):
@@ -66,8 +68,12 @@ class MainWindow(tk.Frame):
         }
 
     def roll(self):
-        self.player1.PlayerRoll()
-        self.displayDice()
+        if self.player1.throwsLeft < 0:
+            self.rollBtn.config(state='disabled')
+            self.turnMessage.set('You are out off rolls this round!')
+        else:
+            self.player1.PlayerRoll()
+            self.displayDice()
 
 class Die(object):
     def __init__(self, id):
@@ -98,11 +104,12 @@ class Player(object):
             self.currentDice.append(Die(i))
 
     def PlayerRoll(self):
+        self.throwsLeft -= 1
         for i in self.currentDice:
             #print(i.hold)
             if not i.hold:
                 i.value = i.getOneNum()
-        self.throwsLeft -= 1
+
         #print(YatziValidor.aces(self))
 
 class YatziValidor(object):
