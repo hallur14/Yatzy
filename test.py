@@ -3,21 +3,26 @@ from tkinter import ttk
 from random import randint
 import os
 
+
+
 def roll_dice(self,dice):
+    throw = [randint(1, 6) for x in range(5)]
+
+
+
     throw = [randint(1,6) for x in range(5)]
     die1 = show_die(dice[0],throw[0])
     die2 = show_die(dice[1],throw[1])
     die3 = show_die(dice[2],throw[2])
     die4 = show_die(dice[3],throw[3])
     die5 = show_die(dice[4],throw[4])
-    die1[0].grid(row=1, column=0)
-    die2[0].grid(row=2, column=0)
-    die3[0].grid(row=3, column=0)
-    die4[0].grid(row=4, column=0)
-    die5[0].grid(row=5, column=0)
+    die1[0].grid(row=2, column=0)
+    die2[0].grid(row=3, column=0)
+    die3[0].grid(row=4, column=0)
+    die4[0].grid(row=5, column=0)
+    die5[0].grid(row=6, column=0)
 
 def show_die(d,a):
-    print(type(d[1].get()))
     if(d[1].get()) == True:
         return d
     if (d[1].get()) == 1:
@@ -34,11 +39,7 @@ def show_die(d,a):
         return (Checkbutton(root, image=dieImg5, selectimage=dieImg5_h, height=110, width=110, bg='green', variable=d[1]), d[1])
     elif a == 6:
         return (Checkbutton(root, image=dieImg6, selectimage=dieImg6_h, height=110, width=110, bg='green', variable=d[1]), d[1])
-def on_click(self,event):
-    if self.image_names() == dieImg1:
-        self.image = dieImg1_h
-    elif self.image_names() == dieImg1_h:
-        self.image = dieImg1
+
 root = Tk()
 root.configure(background='Green')
 TheLabel = Label(root, text='testing, one, two, three')
@@ -60,9 +61,7 @@ dieImg6_h = PhotoImage(file=os.path.join('DiceTextures', 'blue', '6.png'))
 
 
 rollButton = Button(text='Roll the dice', height = 1,width = 15,padx=10,pady=10)
-rollButton
 rollsLeft = Label(text='Throws left:')
-
 
 def generate_dice():
     var0 = BooleanVar()
@@ -70,7 +69,7 @@ def generate_dice():
     var2 = BooleanVar()
     var3 = BooleanVar()
     var4 = BooleanVar()
-    die1 = Checkbutton(root, image = dieImg1,height=110, width=110,bg='green',  variable  = var0)
+    die1 = Checkbutton(root, image = dieImg1,height=110, width=110,bg='green', variable  = var0)
     die2 = Checkbutton(root, image = dieImg2,height=110, width=110,bg='green', variable  = var1)
     die3 = Checkbutton(root, image = dieImg3,height=110, width=110,bg='green', variable  = var2)
     die4 = Checkbutton(root, image = dieImg4,height=110, width=110,bg='green', variable  = var3)
@@ -84,12 +83,7 @@ def generate_dice():
     return dice
 dice = generate_dice()
 padCanvas = Canvas(root,height=10,width=0,bd=0,highlightthickness=0,relief='ridge')
-#TheLabel.pack()
-dice[0][0].grid(row=2,column=0)
-dice[1][0].grid(row=3,column=0)
-dice[2][0].grid(row=4,column=0)
-dice[3][0].grid(row=5,column=0)
-dice[4][0].grid(row=6,column=0)
+
 rollButton.grid(row=1,column=0)
 rollsLeft.grid(row=4,column=2)
 padCanvas.grid(row=0,column=0)

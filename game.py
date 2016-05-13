@@ -32,16 +32,17 @@ class MainWindow(tk.Frame):
 
         infoLabel1 = Label(self, textvariable=self.infoMessage)
         infoLabel1.place(x=150, y=10)
-        rollBtn = Button(self, text='Roll', height=1, width=14, command=self.displayDies)
+        rollBtn = Button(self, text='Roll', height=1, width=14, command=self.roll)
         rollBtn.place(x=40, y=10)
 
 
-    def displayDies(self):
+    def displayDice(self):
         self.infoMessage.set('Select which dies to keep and Roll again')
-
         for n, i in enumerate(self.player1.currentDice):
-            check = Checkbutton(self, image=self.dice[i.value], selectimage=self.diceH[i.value], height=110, width=110)
+            check = Checkbutton(self, image=self.dice[i.value], selectimage=self.diceH[i.value], height=110, width=110, command = i.switch)
+            #varList.append(var)
             check.place(x=20, y=(n*120)+40)
+
 
     def gen_dice_images(self):
         self.dice = {
@@ -53,19 +54,25 @@ class MainWindow(tk.Frame):
             for i in range(6)
         }
 
-
+    def roll(self):
+        self.player1.PlayerRoll()
+        self.displayDice()
 
 class Die(object):
     def __init__(self, id):
         self.id = id
-        self.roll()
+        self.getOneNum()
+        self.hold = False
 
-    def roll(self):
+    def getOneNum(self):
         self.value = randint(1, 6)
         return self.value
 
     def __str__(self):
         return str(self.value)
+
+    def switch(self):
+        self.hold = not self.hold
 
 class Player(object):
     def __init__(self):
@@ -78,10 +85,19 @@ class Player(object):
         for i in range(5):
             self.currentDice.append(Die(i))
 
-#Player1 = Player()
-#for i in Player1.currentDice:
-#   print(i)
+    def PlayerRoll(self):
+        for i in self.currentDice:
+            print(i.hold)
+            if not i.hold:
+                i.value = i.getOneNum()
+        return self.currentDice
 
+'''
+
+Player1 = Player()
+for i in Player1.currentDice:
+   print(i)
+'''
 app = game()
 app.geometry("%dx%d+0+0" %(1024,768))
 app.resizable(width=False, height=False)
