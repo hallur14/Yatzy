@@ -31,18 +31,27 @@ class MainWindow(tk.Frame):
         self.infoMessage.set('Press roll to get your first set of Dices')
 
         infoLabel1 = Label(self, textvariable=self.infoMessage)
+        rollsLeft = Label(text='Throws left: ')
         infoLabel1.place(x=150, y=10)
         rollBtn = Button(self, text='Roll', height=1, width=14, command=self.roll)
         rollBtn.place(x=40, y=10)
+        rollsLeft.place(x=150, y=30)
 
 
     def displayDice(self):
         self.infoMessage.set('Select which dies to keep and Roll again')
         for n, i in enumerate(self.player1.currentDice):
-            check = Checkbutton(self, image=self.dice[i.value], selectimage=self.diceH[i.value], height=110, width=110, command = i.switch)
-            #varList.append(var)
-            check.place(x=20, y=(n*120)+40)
+            var = BooleanVar()
+            var.set(int(i.hold))
+            print(i.hold,var.get())
 
+            check = Checkbutton(self, image=self.dice[i.value], selectimage=self.diceH[i.value], height=110, width=110,
+                                variable = var, command = i.switch)
+            #varList.append(var)
+
+            check.place(x=20, y=(n*120)+40)
+            check.var = var
+            #var.set(i.hold)
 
     def gen_dice_images(self):
         self.dice = {
@@ -62,6 +71,7 @@ class Die(object):
     def __init__(self, id):
         self.id = id
         self.getOneNum()
+        self.hold = BooleanVar()
         self.hold = False
 
     def getOneNum(self):
@@ -90,13 +100,15 @@ class Player(object):
             print(i.hold)
             if not i.hold:
                 i.value = i.getOneNum()
-        return self.currentDice
+        self.throwsLeft -= 1
+
 
 '''
 
 Player1 = Player()
 for i in Player1.currentDice:
    print(i)
+
 '''
 app = game()
 app.geometry("%dx%d+0+0" %(1024,768))
