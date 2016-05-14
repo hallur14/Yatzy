@@ -57,10 +57,13 @@ class MainWindow(tk.Frame):
         self.restartBtn.place(x=460, y=90)
 
         #This section has buttons and labels for the scoreboard
-        self.acesBtn = Button(self, text='Aces', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
+        self.acesBtn = Button(self, text='Aces', height=1, width=13, command=self.validateAces, font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
         self.acesBtn.place(x=200, y=90)
-        self.acesLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
+        self.acesMsg = StringVar()
+        self.acesMsg.set('0')
+        self.acesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.acesMsg, fg="black", bg='white')
         self.acesLabel.place(x=scoreBoardLabelXcord, y=90)
+
 
         self.deucesBtn = Button(self, text='Deuces', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
         self.deucesBtn.place(x=scoreBoardBtnXcord, y=120)
@@ -208,6 +211,11 @@ class MainWindow(tk.Frame):
             check = Checkbutton(self, image=self.dice[0], height=100, width=100)
             check.place(x=41, y=(i*120)+85)
 
+    def validateAces(self):
+        print(YatziValidor.singleNumbers(self.player1.currentDice, 1))
+
+
+
 
 class Die(object):
     def __init__(self, id):
@@ -233,6 +241,7 @@ class Player(object):
         self.throwsLeft = 3
         self.currentDice = []
         self.selectedDice = []
+        self.validator = YatziValidor()
 
         for i in range(5):
             self.currentDice.append(Die(i))
@@ -244,14 +253,19 @@ class Player(object):
             if not i.hold:
                 i.value = i.getOneNum()
 
-        print(YatziValidor.singleNumbers(self,5))
-
 class YatziValidor(object):
     NUMBER_OF_TURNS = 15
-    def dice(self,currentDice):
-        return [x.value for x in self.currentDice]
 
+    #def dice(self,currentDice):
+    #    return [x.value for x in self.currentDice]
 
+    def singleNumbers(currDice, number):
+        currentDice = currDice
+        #return currentDice[0].value
+
+        return sum(i for i in [x.value for x in currentDice if x.value == number])
+
+'''
     def topMatches(self, nrOfOccurrances,nrOfPairs):
         dice = YatziValidor.dice(self,self.currentDice)
         diceSet = set(dice)
@@ -263,9 +277,6 @@ class YatziValidor(object):
             return max(repetitions) * 4
         else:
             return 0
-
-    def singleNumbers(self,number):
-        return sum(i for i in YatziValidor.dice(self, self.currentDice) if i == number)
 
     def pair(self):
         return YatziValidor.topMatches(self,2,1)
@@ -300,7 +311,7 @@ class YatziValidor(object):
             return 50
         else:
             return False
-
+'''
 
 app = game()
 app.geometry("%dx%d+0+0" %(530,720))
