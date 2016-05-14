@@ -137,40 +137,42 @@ class Player(object):
             if not i.hold:
                 i.value = i.getOneNum()
 
-        #print(YatziValidor.aces(self))
+        print(YatziValidor.twoPair(self))
 
 class YatziValidor(object):
     NUMBER_OF_TURNS = 15
+    def dice(self,currentDice):
+        return [x.value for x in self.currentDice]
 
-    def aces(self):
-        return sum(i.value for i in self.currentDice if i.value == 1)
 
-    def deuces(self):
-        return sum(i.value for i in self.currentDice if i.value == 2)
+    def topMatches(self, nrOfOccurrances,nrOfPairs):
+        dice = YatziValidor.dice(self,self.currentDice)
+        diceSet = set(dice)
+        repetitions = [x for x in diceSet if dice.count(x) >= nrOfOccurrances]
+        if len(repetitions) == 2:
+            return repetitions
+        elif len(repetitions) >= 1:
+            return max(repetitions)
+        else:
+            return 0
 
-    def threes(self):
-        return sum(i.value for i in self.currentDice if i.value == 3)
-
-    def fours(self):
-        return sum(i.value for i in self.currentDice if i.value == 4)
-
-    def fives(self):
-        return sum(i.value for i in self.currentDice if i.value == 5)
-
-    def sixes(self):
-        return sum(i.value for i in self.currentDice if i.value == 6)
+    def singleNumbers(self,number):
+        return sum(i.value for i in YatziValidor.dice(self, self.currentDice) if i.value == number)
 
     def pair(self):
-        return False
+        return YatziValidor.topMatches(self,2,1)
 
     def twoPair(self):
-        return False
+        if YatziValidor.topMatches(self,4,1):
+            return YatziValidor.topMatches(self,4,1)
+        elif YatziValidor.topMatches(self,4,2):
+            print(YatziValidor.topMatches(self,4,2))
 
     def threeOfaKind(self):
-        return False
+        return YatziValidor.topMatches(self,3,1)
 
     def fourOfaKind(self):
-        return False
+        return YatziValidor.topMatches(self,4,1)
 
     def littleRow(self):
         return (self.currentDice == list(range(1, 6)))
@@ -180,6 +182,16 @@ class YatziValidor(object):
 
     def fullHouse(self):
         return False
+
+    def chance(self):
+        self.Player.score += sum(i.value for i in self.currentDice)
+
+    def yatzy(self):
+        if len(set(self.currentDice)) <= 1:
+            return 50
+        else:
+            return False
+
 
 app = game()
 app.geometry("%dx%d+0+0" %(1024,768))
