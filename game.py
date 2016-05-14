@@ -272,6 +272,26 @@ class MainWindow(tk.Frame):
             self.fivesBtn.config(state='normal')
         if not 6 in self.player1.combos_used:
             self.sixesBtn.config(state='normal')
+        if not 7 in self.player1.combos_used:
+            self.onePairBtn.config(state='normal')
+        if not 8 in self.player1.combos_used:
+            self.twoPairBtn.config(state='normal')
+        if not 9 in self.player1.combos_used:
+            self.threeOfKindBtn.config(state='normal')
+        if not 10 in self.player1.combos_used:
+            self.fourOfKindBtn.config(state='normal')
+        if not 11 in self.player1.combos_used:
+            self.smallStraightBtn.config(state='normal')
+        if not 12 in self.player1.combos_used:
+            self.largeStraightBtn.config(state='normal')
+        if not 13 in self.player1.combos_used:
+            self.fullHouse.config(state='normal')
+        if not 14 in self.player1.combos_used:
+            self.chanceBtn.config(state='normal')
+        if not 15 in self.player1.combos_used:
+            self.yatzyBtn.config(state='normal')
+
+
 class Die(object):
     def __init__(self, id):
         self.id = id
