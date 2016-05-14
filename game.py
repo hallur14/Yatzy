@@ -208,10 +208,16 @@ class MainWindow(tk.Frame):
             self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
 
         self.totalMsg.set(self.player1.score)
+        self.endTurn()
 
     def endTurn(self):
         self.player1.throwsLeft = 3
         self.player1.turnsLeft -= 1
+        self.player1.resetDice()
+        self.infoMessage.set('Press ROLL to get your dice!')
+        self.turnMessage.set('You have ' + str(self.player1.throwsLeft) + ' remaining rolls this turn')
+        self.rollBtn.config(state='normal')
+        self.startDice()
 
     #This functions displays the state of the current dice
     def displayDice(self):
@@ -244,7 +250,6 @@ class MainWindow(tk.Frame):
 
     #This function gets new die values for unmarked dice
     def roll(self):
-        #self.disableButtons()
         if not self.player1.throwsLeft == 0:
             self.player1.PlayerRoll()
         self.enableUnused()
@@ -332,6 +337,11 @@ class Player(object):
             #print(i.hold)
             if not i.hold:
                 i.value = i.getOneNum()
+
+    def resetDice(self):
+        for i in self.currentDice:
+            i.value = i.initalizeDiceWithZero()
+            i.hold = False
 
 
 class YatziValidor(object):
