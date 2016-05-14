@@ -58,7 +58,7 @@ class MainWindow(tk.Frame):
 
         #This section has buttons and labels for the scoreboard
         self.acesBtn = Button(self, text='Aces', height=1, width=13, command=lambda: self.validateUpperSix(1),
-                              font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
+                              font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
         self.acesBtn.place(x=200, y=90)
         self.acesMsg = StringVar()
         self.acesMsg.set('')
@@ -66,7 +66,7 @@ class MainWindow(tk.Frame):
         self.acesLabel.place(x=scoreBoardLabelXcord, y=90)
 
 
-        self.deucesBtn = Button(self, text='Deuces', height=1, width=13, command=lambda: self.validateUpperSix(2), font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
+        self.deucesBtn = Button(self, text='Deuces', height=1, width=13, command=lambda: self.validateUpperSix(2), font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
         self.deucesBtn.place(x=scoreBoardBtnXcord, y=120)
         self.deucesMsg = StringVar()
         self.deucesMsg.set('')
@@ -74,7 +74,7 @@ class MainWindow(tk.Frame):
         self.deucesLabel.place(x=scoreBoardLabelXcord, y=120)
 
         self.threesBtn = Button(self, text='Threes', height=1, width=13, command=lambda: self.validateUpperSix(3),
-                                font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
+                                font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
         self.threesBtn.place(x=scoreBoardBtnXcord, y=150)
         self.threesMsg = StringVar()
         self.threesMsg.set('')
@@ -82,7 +82,7 @@ class MainWindow(tk.Frame):
         self.threesLabel.place(x=scoreBoardLabelXcord, y=150)
 
         self.fouresBtn = Button(self, text='Foures', height=1, width=13, command=lambda: self.validateUpperSix(4),
-                                font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
+                                font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
         self.fouresBtn.place(x=scoreBoardBtnXcord, y=180)
         self.fouresMsg = StringVar()
         self.fouresMsg.set('')
@@ -90,7 +90,7 @@ class MainWindow(tk.Frame):
         self.fouresLabel.place(x=scoreBoardLabelXcord, y=180)
 
         self.fivesBtn = Button(self, text='Fives', height=1, width=13, command=lambda: self.validateUpperSix(5),
-                               font=('Verdana', scoreBoardFontSize), fg='black',bg='white')
+                               font=('Verdana', scoreBoardFontSize), fg='black',bg='white',state = 'disabled')
         self.fivesBtn.place(x=scoreBoardBtnXcord, y=210)
         self.fivesMsg = StringVar()
         self.fivesMsg.set('')
@@ -98,7 +98,7 @@ class MainWindow(tk.Frame):
         self.fivesLabel.place(x=scoreBoardLabelXcord, y=210)
 
         self.sixesBtn = Button(self, text='Sixes', height=1, width=13, command=lambda: self.validateUpperSix(6),
-                               font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
+                               font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
         self.sixesBtn.place(x=scoreBoardBtnXcord, y=240)
         self.sixesMsg = StringVar()
         self.sixesMsg.set('')
@@ -118,56 +118,56 @@ class MainWindow(tk.Frame):
         self.bonusLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.bonusLabel.place(x=scoreBoardLabelXcord, y=300)
         self.onePairBtn = Button(self, text='One Pair', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white')
+                         bg='white',state = 'disabled')
         self.onePairBtn.place(x=scoreBoardBtnXcord, y=330)
         self.onePairLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.onePairLabel.place(x=scoreBoardLabelXcord, y=330)
 
         self.twoPairBtn = Button(self, text='Two Pair', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white')
+                         bg='white',state = 'disabled')
         self.twoPairBtn.place(x=scoreBoardBtnXcord, y=360)
 
         self.twoPairLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.twoPairLabel.place(x=scoreBoardLabelXcord, y=360)
 
         self.threeOfKindBtn = Button(self, text='Three of a kind', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white')
+                         bg='white',state = 'disabled')
         self.threeOfKindBtn.place(x=scoreBoardBtnXcord, y=390)
         self.threeOfaKindLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.threeOfaKindLabel.place(x=scoreBoardLabelXcord, y=390)
 
         self.fourOfKindBtn = Button(self, text='Four of a kind', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white')
+                         bg='white',state = 'disabled')
         self.fourOfKindBtn.place(x=scoreBoardBtnXcord, y=420)
         self.fourOfaKindLabael = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.fourOfaKindLabael.place(x=scoreBoardLabelXcord, y=420)
 
         self.smallStraightBtn = Button(self, text='Small Straight', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white')
+                         bg='white',state = 'disabled')
         self.smallStraightBtn.place(x=scoreBoardBtnXcord, y=450)
         self.smallStraightLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.smallStraightLabel.place(x=scoreBoardLabelXcord, y=450)
 
         self.largeStraightBtn = Button(self, text='Large Straight', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white')
+                         bg='white',state = 'disabled')
         self.largeStraightBtn.place(x=scoreBoardBtnXcord, y=480)
         self.largeStraightLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.largeStraightLabel.place(x=scoreBoardLabelXcord, y=480)
 
         self.fullHouse = Button(self, text='Full House', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white')
+                         bg='white',state = 'disabled')
         self.fullHouse.place(x=scoreBoardBtnXcord, y=510)
         self.fullHouseLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.fullHouseLabel.place(x=scoreBoardLabelXcord, y=510)
 
         self.chanceBtn = Button(self, text='Chance', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white')
+                         bg='white',state = 'disabled')
         self.chanceBtn.place(x=scoreBoardBtnXcord, y=540)
         self.chanceLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.chanceLabel.place(x=scoreBoardLabelXcord, y=540)
 
         self.yatzyBtn = Button(self, text='Yatzi', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white')
+                         bg='white',state = 'disabled')
         self.yatzyBtn.place(x=scoreBoardBtnXcord, y=570)
         self.yatzyLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.yatzyLabel.place(x=scoreBoardLabelXcord, y=570)
@@ -180,8 +180,8 @@ class MainWindow(tk.Frame):
         self.totalLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.totalMsg, fg="green", bg='white')
         self.totalLabel.place(x=scoreBoardLabelXcord, y=600)
 
-
     def validateUpperSix(self, n):
+        self.player1.combos_used.append(n)
         if n == 1:
             self.acesMsg.set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
             self.acesBtn.config(state='disabled')
@@ -244,9 +244,10 @@ class MainWindow(tk.Frame):
 
     #This function gets new die values for unmarked dice
     def roll(self):
+        #self.disableButtons()
         if not self.player1.throwsLeft == 0:
             self.player1.PlayerRoll()
-
+        self.enableUnused()
         self.displayDice()
 
         if self.player1.throwsLeft == 0:
@@ -258,7 +259,19 @@ class MainWindow(tk.Frame):
             check = Checkbutton(self, image=self.dice[0], height=100, width=100)
             check.place(x=41, y=(i*120)+85)
 
-
+    def enableUnused(self):
+        if not 1 in self.player1.combos_used:
+            self.acesBtn.config(state='normal')
+        if not 2 in self.player1.combos_used:
+            self.deucesBtn.config(state='normal')
+        if not 3 in self.player1.combos_used:
+            self.threesBtn.config(state='normal')
+        if not 4 in self.player1.combos_used:
+            self.fouresBtn.config(state='normal')
+        if not 5 in self.player1.combos_used:
+            self.fivesBtn.config(state='normal')
+        if not 6 in self.player1.combos_used:
+            self.sixesBtn.config(state='normal')
 class Die(object):
     def __init__(self, id):
         self.id = id
@@ -289,7 +302,7 @@ class Player(object):
         #self.selectedDice = []
         self.validator = YatziValidor()
         self.bonusSum = 0
-
+        self.combos_used = []
         for i in range(5):
             self.currentDice.append(Die(i))
 
@@ -299,8 +312,6 @@ class Player(object):
             #print(i.hold)
             if not i.hold:
                 i.value = i.getOneNum()
-        print(YatziValidor.pair(self.currentDice))
-        (YatziValidor.littleRow(self.currentDice))
 
 
 class YatziValidor(object):
