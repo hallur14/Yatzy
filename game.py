@@ -244,7 +244,7 @@ class Player(object):
             if not i.hold:
                 i.value = i.getOneNum()
 
-        print(YatziValidor.twoPair(self))
+        print(YatziValidor.singleNumbers(self,5))
 
 class YatziValidor(object):
     NUMBER_OF_TURNS = 15
@@ -256,15 +256,16 @@ class YatziValidor(object):
         dice = YatziValidor.dice(self,self.currentDice)
         diceSet = set(dice)
         repetitions = [x for x in diceSet if dice.count(x) >= nrOfOccurrances]
-        if len(repetitions) == 2:
-            return repetitions
-        elif len(repetitions) >= 1:
-            return max(repetitions)
+        print(len(repetitions))
+        if len(repetitions) == 2 and nrOfPairs == 2:
+            return sum(repetitions)*2
+        elif len(repetitions) >= 1 and nrOfPairs == 2:
+            return max(repetitions) * 4
         else:
             return 0
 
     def singleNumbers(self,number):
-        return sum(i.value for i in YatziValidor.dice(self, self.currentDice) if i.value == number)
+        return sum(i for i in YatziValidor.dice(self, self.currentDice) if i == number)
 
     def pair(self):
         return YatziValidor.topMatches(self,2,1)
@@ -272,8 +273,8 @@ class YatziValidor(object):
     def twoPair(self):
         if YatziValidor.topMatches(self,4,1):
             return YatziValidor.topMatches(self,4,1)
-        elif YatziValidor.topMatches(self,4,2):
-            print(YatziValidor.topMatches(self,4,2))
+        elif YatziValidor.topMatches(self,2,2):
+            print(YatziValidor.topMatches(self,2,2))
 
     def threeOfaKind(self):
         return YatziValidor.topMatches(self,3,1)
@@ -282,7 +283,8 @@ class YatziValidor(object):
         return YatziValidor.topMatches(self,4,1)
 
     def littleRow(self):
-        return (self.currentDice == list(range(1, 6)))
+        if (YatziValidor.dice(self,self.currentDice) == list(range(1, 6))):
+            return self.chance()
 
     def big_row(self):
         (self.currentDice == list(range(2, 7)))
@@ -291,7 +293,7 @@ class YatziValidor(object):
         return False
 
     def chance(self):
-        self.Player.score += sum(i.value for i in self.currentDice)
+        return sum(i.value for i in self.currentDice)
 
     def yatzy(self):
         if len(set(self.currentDice)) <= 1:
