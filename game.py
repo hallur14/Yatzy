@@ -25,7 +25,7 @@ class game(tk.Tk):
 class MainWindow(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-
+        alButtons = []
         scoreBoardFontSize = 10
         scoreBoardBtnXcord = 200
         scoreBoardLabelXcord = 330
@@ -64,7 +64,7 @@ class MainWindow(tk.Frame):
         self.acesMsg.set('')
         self.acesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.acesMsg, fg="black", bg='white')
         self.acesLabel.place(x=scoreBoardLabelXcord, y=90)
-
+        self.allButtons.append(self.acesBtn)
 
         self.deucesBtn = Button(self, text='Deuces', height=1, width=13, command=lambda: self.validateUpperSix(2), font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
         self.deucesBtn.place(x=scoreBoardBtnXcord, y=120)
@@ -72,6 +72,7 @@ class MainWindow(tk.Frame):
         self.deucesMsg.set('')
         self.deucesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.deucesMsg, fg="green", bg='white')
         self.deucesLabel.place(x=scoreBoardLabelXcord, y=120)
+        self.allButtons.append(self.deucesBtn)
 
         self.threesBtn = Button(self, text='Threes', height=1, width=13, command=lambda: self.validateUpperSix(3),
                                 font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
@@ -80,6 +81,7 @@ class MainWindow(tk.Frame):
         self.threesMsg.set('')
         self.threesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.threesMsg, fg="green", bg='white')
         self.threesLabel.place(x=scoreBoardLabelXcord, y=150)
+        self.allButtons.append(self.threesBtn)
 
         self.fouresBtn = Button(self, text='Foures', height=1, width=13, command=lambda: self.validateUpperSix(4),
                                 font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
