@@ -25,7 +25,7 @@ class game(tk.Tk):
 class MainWindow(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        alButtons = []
+        self.allButtons = []
         scoreBoardFontSize = 10
         scoreBoardBtnXcord = 200
         scoreBoardLabelXcord = 330
@@ -90,6 +90,7 @@ class MainWindow(tk.Frame):
         self.fouresMsg.set('')
         self.fouresLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.fouresMsg, fg="green", bg='white')
         self.fouresLabel.place(x=scoreBoardLabelXcord, y=180)
+        self.allButtons.append(self.fouresBtn)
 
         self.fivesBtn = Button(self, text='Fives', height=1, width=13, command=lambda: self.validateUpperSix(5),
                                font=('Verdana', scoreBoardFontSize), fg='black',bg='white',state = 'disabled')
@@ -98,6 +99,7 @@ class MainWindow(tk.Frame):
         self.fivesMsg.set('')
         self.fivesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.fivesMsg, fg="green", bg='white')
         self.fivesLabel.place(x=scoreBoardLabelXcord, y=210)
+        self.allButtons.append(self.fivesBtn)
 
         self.sixesBtn = Button(self, text='Sixes', height=1, width=13, command=lambda: self.validateUpperSix(6),
                                font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
@@ -106,6 +108,7 @@ class MainWindow(tk.Frame):
         self.sixesMsg.set('')
         self.sixesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.sixesMsg, fg="green", bg='white')
         self.sixesLabel.place(x=scoreBoardLabelXcord, y=240)
+        self.allButtons.append(self.sixesBtn)
 
         self.sumBtn = Button(self, text='Sum', height=1, width=13, state='disabled', font=('Verdana', scoreBoardFontSize),
                              fg='black', bg='white')
@@ -124,6 +127,7 @@ class MainWindow(tk.Frame):
         self.onePairBtn.place(x=scoreBoardBtnXcord, y=330)
         self.onePairLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.onePairLabel.place(x=scoreBoardLabelXcord, y=330)
+        self.allButtons.append(self.onePairBtn)
 
         self.twoPairBtn = Button(self, text='Two Pair', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
                          bg='white',state = 'disabled')
@@ -131,48 +135,56 @@ class MainWindow(tk.Frame):
 
         self.twoPairLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.twoPairLabel.place(x=scoreBoardLabelXcord, y=360)
+        self.allButtons.append(self.twoPairBtn)
 
         self.threeOfKindBtn = Button(self, text='Three of a kind', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
                          bg='white',state = 'disabled')
         self.threeOfKindBtn.place(x=scoreBoardBtnXcord, y=390)
         self.threeOfaKindLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.threeOfaKindLabel.place(x=scoreBoardLabelXcord, y=390)
+        self.allButtons.append(self.threeOfKindBtn)
 
         self.fourOfKindBtn = Button(self, text='Four of a kind', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
                          bg='white',state = 'disabled')
         self.fourOfKindBtn.place(x=scoreBoardBtnXcord, y=420)
         self.fourOfaKindLabael = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.fourOfaKindLabael.place(x=scoreBoardLabelXcord, y=420)
+        self.allButtons.append(self.fourOfKindBtn)
 
         self.smallStraightBtn = Button(self, text='Small Straight', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
                          bg='white',state = 'disabled')
         self.smallStraightBtn.place(x=scoreBoardBtnXcord, y=450)
         self.smallStraightLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.smallStraightLabel.place(x=scoreBoardLabelXcord, y=450)
+        self.allButtons.append(self.smallStraightBtn)
 
         self.largeStraightBtn = Button(self, text='Large Straight', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
                          bg='white',state = 'disabled')
         self.largeStraightBtn.place(x=scoreBoardBtnXcord, y=480)
         self.largeStraightLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.largeStraightLabel.place(x=scoreBoardLabelXcord, y=480)
+        self.allButtons.append(self.largeStraightBtn)
 
         self.fullHouse = Button(self, text='Full House', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
                          bg='white',state = 'disabled')
         self.fullHouse.place(x=scoreBoardBtnXcord, y=510)
         self.fullHouseLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.fullHouseLabel.place(x=scoreBoardLabelXcord, y=510)
+        self.allButtons.append(self.fullHouse)
 
         self.chanceBtn = Button(self, text='Chance', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
                          bg='white',state = 'disabled')
         self.chanceBtn.place(x=scoreBoardBtnXcord, y=540)
         self.chanceLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.chanceLabel.place(x=scoreBoardLabelXcord, y=540)
+        self.allButtons.append(self.chanceBtn)
 
         self.yatzyBtn = Button(self, text='Yatzi', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
                          bg='white',state = 'disabled')
         self.yatzyBtn.place(x=scoreBoardBtnXcord, y=570)
         self.yatzyLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.yatzyLabel.place(x=scoreBoardLabelXcord, y=570)
+        self.allButtons.append(self.yatzyBtn)
 
         self.totalBtn = Button(self, text='Total', height=1, width=13, state='disabled',
                                font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
@@ -219,7 +231,9 @@ class MainWindow(tk.Frame):
         self.infoMessage.set('Press ROLL to get your dice!')
         self.turnMessage.set('You have ' + str(self.player1.throwsLeft) + ' remaining rolls this turn')
         self.rollBtn.config(state='normal')
+        self.disableAllButtons()
         self.startDice()
+
 
     #This functions displays the state of the current dice
     def displayDice(self):
@@ -298,6 +312,9 @@ class MainWindow(tk.Frame):
         if not 15 in self.player1.combos_used:
             self.yatzyBtn.config(state='normal')
 
+    def disableAllButtons(self):
+        for i in self.allButtons:
+            i.config(state='disabled')
 
 class Die(object):
     def __init__(self, id):
