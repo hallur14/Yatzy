@@ -253,7 +253,7 @@ class Player(object):
             if not i.hold:
                 i.value = i.getOneNum()
         print(YatziValidor.pair(self.currentDice))
-        print(YatziValidor.twoPair(self.currentDice))
+        (YatziValidor.littleRow(self.currentDice))
 
 
 class YatziValidor(object):
@@ -265,20 +265,22 @@ class YatziValidor(object):
     def singleNumbers(currDice, number):
         return sum(i for i in [x.value for x in currDice if x.value == number])
 
-    def topMatches(currDice, nrOfOccurrances,nrOfPairs):
+    def topMatches(currDice, nrOfOccurrances, mode): #mode 1 for 2,3 or 4 of a kind. mode 2 for two pair. mode 3 for full house
         diceSet = set([x.value for x in currDice])
         repetitions = [y for y in diceSet if [x.value for x in currDice].count(y) >= nrOfOccurrances]
-        if nrOfPairs == 1 and len(repetitions) >= 1:
+        if mode == 1 and len(repetitions) >= 1:
             return max(repetitions)*2
-        elif nrOfPairs == 2 and len(repetitions) == 2:
+        elif mode == 2 and len(repetitions) == 2:
             return sum(repetitions)*2
-        elif nrOfPairs == 2 and len(repetitions) == 1 and [x.value for x in currDice].count(repetitions[0]) >= 4:
+        elif mode == 2 and len(repetitions) == 1 and [x.value for x in currDice].count(repetitions[0]) >= 4:
             return max(repetitions)*4
+        elif mode == 3 and len(repetitions) == 2 and ([x.value for x in currDice].count(repetitions[0]) == 3 or [x.value for x in currDice].count(repetitions[0])== 2):
+            return YatziValidor.chance(currDice)
         else:
             return 0
 
-    def pair(self):
-        return YatziValidor.topMatches(self,2,1)
+    def pair(currDice):
+        return YatziValidor.topMatches(currDice,2,1)
 
     def twoPair(currDice):
         if YatziValidor.topMatches(currDice,4,2) != 0:
@@ -293,19 +295,20 @@ class YatziValidor(object):
         return YatziValidor.topMatches(currDice,4,1)
 
     def littleRow(currDice):
-        if ([x.value for x in currDice] == list(range(1, 6))):
-            return currDice.chance()
+        if (sorted([x.value for x in currDice]) == list(range(1, 6))):
+            return YatziValidor.chance(currDice)
         else:
             return 0
 
     def big_row(currDice):
-        ([x.value for x in currDice] == list(range(2, 7)))
+        if (sorted([x.value for x in currDice]) == list(range(2, 7))):
+            return YatziValidor.chance(currDice)
 
     def fullHouse(currDice):
         if len(set([x.value for x in currDice])) <= 1:
-            return YatziValidor(currDice)
+            return YatziValidor.chance(currDice)
 
-    def chance(currDice):
+    def chance(currDice):                       #returns sum of all dice
         return sum([x.value for x in currDice])
 
     def yatzy(currDice):
