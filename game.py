@@ -52,48 +52,60 @@ class MainWindow(tk.Frame):
         self.rollBtn.place(x=40, y=20)
 
         #This button restarts your game
-        self.restartBtn = Button(self, text='Restart', height=5, width=3, command=self.roll, font=('Verdana', 14), fg='white',
+        self.restartBtn = Button(self, text='\R\n\n\n\ne\ns\nt\na\nr\nt', height=5, width=3, font=('Verdana', 14), fg='white',
                          bg='brown')
         self.restartBtn.place(x=460, y=90)
 
         #This section has buttons and labels for the scoreboard
-        self.acesBtn = Button(self, text='Aces', height=1, width=13, command=self.validateAces, font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
+        self.acesBtn = Button(self, text='Aces', height=1, width=13, command=lambda: self.validateUpperSix(1),
+                              font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
         self.acesBtn.place(x=200, y=90)
         self.acesMsg = StringVar()
-        self.acesMsg.set('0')
+        self.acesMsg.set('')
         self.acesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.acesMsg, fg="black", bg='white')
         self.acesLabel.place(x=scoreBoardLabelXcord, y=90)
 
 
-        self.deucesBtn = Button(self, text='Deuces', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
+        self.deucesBtn = Button(self, text='Deuces', height=1, width=13, command=lambda: self.validateUpperSix(2), font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
         self.deucesBtn.place(x=scoreBoardBtnXcord, y=120)
-        self.deucesLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
+        self.deucesMsg = StringVar()
+        self.deucesMsg.set('')
+        self.deucesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.deucesMsg, fg="green", bg='white')
         self.deucesLabel.place(x=scoreBoardLabelXcord, y=120)
 
-        self.threesBtn = Button(self, text='Threes', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
+        self.threesBtn = Button(self, text='Threes', height=1, width=13, command=lambda: self.validateUpperSix(3),
+                                font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
         self.threesBtn.place(x=scoreBoardBtnXcord, y=150)
-        self.threesLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
+        self.threesMsg = StringVar()
+        self.threesMsg.set('')
+        self.threesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.threesMsg, fg="green", bg='white')
         self.threesLabel.place(x=scoreBoardLabelXcord, y=150)
 
-        self.fouresBtn = Button(self, text='Foures', height=1, width=13,font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white')
+        self.fouresBtn = Button(self, text='Foures', height=1, width=13, command=lambda: self.validateUpperSix(4),
+                                font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
         self.fouresBtn.place(x=scoreBoardBtnXcord, y=180)
-        self.fouresLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
+        self.fouresMsg = StringVar()
+        self.fouresMsg.set('')
+        self.fouresLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.fouresMsg, fg="green", bg='white')
         self.fouresLabel.place(x=scoreBoardLabelXcord, y=180)
 
-        self.fivesBtn = Button(self, text='Fives', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white')
+        self.fivesBtn = Button(self, text='Fives', height=1, width=13, command=lambda: self.validateUpperSix(5),
+                               font=('Verdana', scoreBoardFontSize), fg='black',bg='white')
         self.fivesBtn.place(x=scoreBoardBtnXcord, y=210)
-        self.fivesLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
+        self.fivesMsg = StringVar()
+        self.fivesMsg.set('')
+        self.fivesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.fivesMsg, fg="green", bg='white')
         self.fivesLabel.place(x=scoreBoardLabelXcord, y=210)
 
-        self.sixesBtn = Button(self, text='Sixes', height=1, width=13, font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white')
+        self.sixesBtn = Button(self, text='Sixes', height=1, width=13, command=lambda: self.validateUpperSix(6),
+                               font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
         self.sixesBtn.place(x=scoreBoardBtnXcord, y=240)
-        self.sixesLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
+        self.sixesMsg = StringVar()
+        self.sixesMsg.set('')
+        self.sixesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.sixesMsg, fg="green", bg='white')
         self.sixesLabel.place(x=scoreBoardLabelXcord, y=240)
 
-        self.sumBtn = Button(self, text='Sum', height=1, width=13, state='disabled',font=('Verdana', scoreBoardFontSize),
+        self.sumBtn = Button(self, text='Sum', height=1, width=13, state='disabled', font=('Verdana', scoreBoardFontSize),
                              fg='black', bg='white')
         self.sumBtn.place(x=scoreBoardBtnXcord, y=270)
         self.sumLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
@@ -160,11 +172,46 @@ class MainWindow(tk.Frame):
         self.yatzyLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
         self.yatzyLabel.place(x=scoreBoardLabelXcord, y=570)
 
-        self.totalBtn = Button(self, text='Total', height=1, width=13, state='disabled', font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white')
+        self.totalBtn = Button(self, text='Total', height=1, width=13, state='disabled',
+                               font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
+        self.totalMsg = StringVar()
+        self.totalMsg.set('0')
         self.totalBtn.place(x=scoreBoardBtnXcord, y=600)
-        self.totalLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
+        self.totalLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.totalMsg, fg="green", bg='white')
         self.totalLabel.place(x=scoreBoardLabelXcord, y=600)
+
+
+    def validateUpperSix(self, n):
+        if n == 1:
+            self.acesMsg.set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
+            self.acesBtn.config(state='disabled')
+            self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
+        if n == 2:
+            self.deucesMsg.set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
+            self.deucesBtn.config(state='disabled')
+            self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
+        if n == 3:
+            self.threesMsg.set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
+            self.threesBtn.config(state='disabled')
+            self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
+        if n == 4:
+            self.fouresMsg.set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
+            self.fouresBtn.config(state='disabled')
+            self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
+        if n == 5:
+            self.fivesMsg.set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
+            self.fivesBtn.config(state='disabled')
+            self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
+        if n == 6:
+            self.sixesMsg.set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
+            self.sixesBtn.config(state='disabled')
+            self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
+
+        self.totalMsg.set(self.player1.score)
+
+    def endTurn(self):
+        self.player1.throwsLeft = 3
+        self.player1.turnsLeft -= 1
 
     #This functions displays the state of the current dice
     def displayDice(self):
@@ -211,18 +258,17 @@ class MainWindow(tk.Frame):
             check = Checkbutton(self, image=self.dice[0], height=100, width=100)
             check.place(x=41, y=(i*120)+85)
 
-    def validateAces(self):
-        print(YatziValidor.singleNumbers(self.player1.currentDice, 1))
-
-
-
 
 class Die(object):
     def __init__(self, id):
         self.id = id
-        self.getOneNum()
+        self.initalizeDiceWithZero()
         self.hold = BooleanVar()
         self.hold = False
+
+    def initalizeDiceWithZero(self):
+        self.value = 0
+        return self.value
 
     def getOneNum(self):
         self.value = randint(1, 6)
@@ -240,8 +286,9 @@ class Player(object):
         self.turnsLeft = 15
         self.throwsLeft = 3
         self.currentDice = []
-        self.selectedDice = []
+        #self.selectedDice = []
         self.validator = YatziValidor()
+        self.bonusSum = 0
 
         for i in range(5):
             self.currentDice.append(Die(i))
