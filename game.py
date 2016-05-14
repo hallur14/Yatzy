@@ -265,7 +265,7 @@ class YatziValidor(object):
     def singleNumbers(currDice, number):
         return sum(i for i in [x.value for x in currDice if x.value == number])
 
-    def topMatches(currDice, nrOfOccurrances, mode): #mode 1 for 2,3 or 4 of a kind. mode 2 for two pair. mode 3 for full house
+    def topMatches(currDice, nrOfOccurrances, mode): #mode 1 for 2,3 or 4 of a kind. mode 2 for two pairs. mode 3 for full house
         diceSet = set([x.value for x in currDice])
         repetitions = [y for y in diceSet if [x.value for x in currDice].count(y) >= nrOfOccurrances]
         if mode == 1 and len(repetitions) >= 1:
