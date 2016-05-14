@@ -32,6 +32,7 @@ class MainWindow(tk.Frame):
 
         self.gen_dice_images()
         self.player1 = Player()
+        self.startDice()
 
         #Label Messages
         self.infoMessage = StringVar()
@@ -183,8 +184,8 @@ class MainWindow(tk.Frame):
     #This functions creates a dictionary of textures used
     def gen_dice_images(self):
         self.dice = {
-            i+1 : PhotoImage(file=os.path.join('DiceTextures', 'white', '%s.png' % (i+1)))
-            for i in range(6)
+            i : PhotoImage(file=os.path.join('DiceTextures', 'white', '%s.png' % (i)))
+            for i in range(7)
         }
         self.diceH = {
             i+1 : PhotoImage(file=os.path.join('DiceTextures', 'blue', '%s.png' % (i+1)))
@@ -201,9 +202,12 @@ class MainWindow(tk.Frame):
         if self.player1.throwsLeft == 0:
             self.rollBtn.config(state='disabled')
             self.turnMessage.set('You are out off rolls this round!')
-            #for n, i in enumerate(self.player1.currentDice):
-            #    i.hold = False
-            #self.displayDice()
+
+    def startDice(self):
+        for i in range(5):
+            check = Checkbutton(self, image=self.dice[0], height=100, width=100)
+            check.place(x=41, y=(i*120)+85)
+
 
 class Die(object):
     def __init__(self, id):
