@@ -447,11 +447,14 @@ class YatziValidor(object):
                 return 0
         elif mode == 3 and len(repetitions) == 2 and ([x.value for x in currDice].count(repetitions[0]) == 3 or [x.value for x in currDice].count(repetitions[0])== 2):
             return YatziValidor.chance(currDice)
-        elif mode == 4 and len(repetitions) <= 2:
-            if ([x.value for x in currDice].count(repetitions[0]) >= 3):
-                return repetitions[0] * 3
-            elif ([x.value for x in currDice].count(repetitions[1]) >= 3):
-                return repetitions[1] * 3
+        elif mode == 4:
+            if len(repetitions) >=  2:
+                if ([x.value for x in currDice].count(repetitions[0]) >= 3):
+                    return repetitions[0] * 3
+                elif ([x.value for x in currDice].count(repetitions[1]) >= 3):
+                    return repetitions[1] * 3
+                else:
+                    return 0
             else:
                 return 0
         elif mode == 5 and len(repetitions) == 1 and [x.value for x in currDice].count(repetitions[0]) >= 4:
