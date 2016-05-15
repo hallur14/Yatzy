@@ -33,17 +33,7 @@ class MainWindow(tk.Frame):
         self.gen_dice_images()
         self.startGame()
 
-        #Label Messages
-        self.infoMessage = StringVar()
-        self.infoMessage.set('Press ROLL to get your dice!')
-        self.turnMessage = StringVar()
-        self.turnMessage.set('You have ' + str(self.player1.throwsLeft) + ' remaining rolls this turn')
 
-        #Labels
-        infoLabel1 = Label(self, textvariable=self.infoMessage, font=('Verdana', 11), fg="green")
-        infoLabel1.place(x=200, y=25)
-        turnLabell = Label(self, textvariable=self.turnMessage, font=('Verdana', 11))
-        turnLabell.place(x=40, y=690)
 
         #This button rolls the dice and displays the dice afterwards
         self.rollBtn = Button(self, text='ROLL', height=1, width=11, command=self.roll, font=('Verdana', 14), fg='white',
@@ -51,7 +41,7 @@ class MainWindow(tk.Frame):
         self.rollBtn.place(x=40, y=20)
 
         #This button restarts your game
-        self.restartBtn = Button(self, text='\R\n\n\n\ne\ns\nt\na\nr\nt', command=self.restartGame, height=5, width=3, font=('Verdana', 14), fg='white',
+        self.restartBtn = Button(self, text='R\ne\ns\nt\na\nr\nt', command=self.restartGame, height=5, width=3, font=('Verdana', 14), fg='white',
                          bg='brown')
         self.restartBtn.place(x=460, y=90)
 
@@ -61,7 +51,7 @@ class MainWindow(tk.Frame):
         self.acesBtn.place(x=200, y=90)
         self.acesMsg = StringVar()
         self.acesMsg.set('')
-        self.acesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.acesMsg, fg="black", bg='white')
+        self.acesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.acesMsg, fg="green", bg='white')
         self.acesLabel.place(x=scoreBoardLabelXcord, y=90)
         self.allButtons.append((self.acesBtn, self.acesLabel, self.acesMsg))
 
@@ -216,9 +206,23 @@ class MainWindow(tk.Frame):
 
     def startGame(self):
         self.player1 = Player()
+
+        #Label Messages
+        self.infoMessage = StringVar()
+        self.infoMessage.set('Press ROLL to get your dice!')
+        self.turnMessage = StringVar()
+        self.turnMessage.set('You have ' + str(self.player1.throwsLeft) + ' remaining rolls this turn')
+
+        #Labels
+        infoLabel1 = Label(self, textvariable=self.infoMessage, font=('Verdana', 11), fg="green")
+        infoLabel1.place(x=200, y=25)
+        turnLabell = Label(self, textvariable=self.turnMessage, font=('Verdana', 11))
+        turnLabell.place(x=40, y=690)
+
         self.startDice()
 
     def restartGame(self):
+        self.rollBtn.config(state='normal')
         self.player1 = None
         self.clearAllLabels()
         self.startGame()
@@ -230,7 +234,6 @@ class MainWindow(tk.Frame):
         self.sumMsg.set('0')
 
     def validateUpperSix(self, n):
-
         self.player1.combos_used.append(n)
         self.allButtons[n-1][2].set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
         self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
@@ -317,7 +320,11 @@ class MainWindow(tk.Frame):
         self.player1.resetDice()
         self.infoMessage.set('Press ROLL to get your dice!')
         self.turnMessage.set('You have ' + str(self.player1.throwsLeft) + ' remaining rolls this turn')
-        self.rollBtn.config(state='normal')
+
+        print(self.player1.turnsLeft)
+        if self.player1.turnsLeft > 0:
+            self.rollBtn.config(state='normal')
+
         self.disableAllButtons()
         self.startDice()
 
@@ -424,11 +431,6 @@ class Player(object):
 
 
 class YatziValidor(object):
-    NUMBER_OF_TURNS = 15
-
-    #def dice(self,currentDice):
-    #    return [x.value for x in self.currentDice]
-
     def singleNumbers(currDice, number):
         return sum(i for i in [x.value for x in currDice if x.value == number])
 
