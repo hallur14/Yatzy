@@ -113,7 +113,9 @@ class MainWindow(tk.Frame):
         self.sumBtn = Button(self, text='Sum', height=1, width=13, state='disabled', font=('Verdana', scoreBoardFontSize),
                              fg='black', bg='white')
         self.sumBtn.place(x=scoreBoardBtnXcord, y=270)
-        self.sumLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
+        self.sumMsg = StringVar()
+        self.sumMsg.set('0')
+        self.sumLabel = Label(self, font=('Verdana', 12), width=10,textvariable=self.sumMsg, fg="green", bg='white')
         self.sumLabel.place(x=scoreBoardLabelXcord, y=270)
 
         self.bonusBtn = Button(self, text='Bonus', height=1, width=13, state='disabled', font=('Verdana', scoreBoardFontSize),
@@ -213,38 +215,15 @@ class MainWindow(tk.Frame):
         self.totalLabel.place(x=scoreBoardLabelXcord, y=600)
 
     def validateUpperSix(self, n):
-        self.player1.combos_used.append(n)
-        #if n == 1:
 
+        self.player1.combos_used.append(n)
         self.allButtons[n-1][2].set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
         self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
-        '''
-            #self.acesMsg.set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
-            #self.acesBtn.config(state='disabled')
-            self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
-        if n == 2:
-            self.deucesMsg.set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
-            self.deucesBtn.config(state='disabled')
-            self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
-        if n == 3:
-            self.threesMsg.set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
-            self.threesBtn.config(state='disabled')
-            self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
-        if n == 4:
-            self.fouresMsg.set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
-            self.fouresBtn.config(state='disabled')
-            self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
-        if n == 5:
-            self.fivesMsg.set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
-            self.fivesBtn.config(state='disabled')
-            self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
-        if n == 6:
-            self.sixesMsg.set(str(YatziValidor.singleNumbers(self.player1.currentDice, n)))
-            self.sixesBtn.config(state='disabled')
-            self.player1.score += YatziValidor.singleNumbers(self.player1.currentDice, n)
-        '''
+        self.player1.bonusSum += YatziValidor.singleNumbers(self.player1.currentDice, n)
+        self.sumMsg.set(self.player1.bonusSum)
         self.totalMsg.set(self.player1.score)
         self.endTurn()
+
     def validateOnePair(self):
         self.allButtons[6][2].set(str(YatziValidor.pair(self.player1.currentDice)))
         self.player1.score += YatziValidor.pair(self.player1.currentDice)
@@ -292,7 +271,7 @@ class MainWindow(tk.Frame):
     def validateFullHouse(self):
         self.allButtons[12][2].set(str(YatziValidor.fullHouse(self.player1.currentDice)))
         self.player1.score += YatziValidor.fullHouse(self.player1.currentDice)
-        self.player1.combos_used.append(3)
+        self.player1.combos_used.append(13)
         self.totalMsg.set(self.player1.score)
         self.endTurn()
 
@@ -306,6 +285,9 @@ class MainWindow(tk.Frame):
     def validateYatzy(self):
         self.allButtons[14][2].set(str(YatziValidor.yatzy(self.player1.currentDice)))
         self.player1.score += YatziValidor.yatzy(self.player1.currentDice)
+        self.player1.combos_used.append(15)
+        self.totalMsg.set(self.player1.score)
+        self.endTurn()
 
     def endTurn(self):
         self.player1.throwsLeft = 3
