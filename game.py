@@ -33,8 +33,6 @@ class MainWindow(tk.Frame):
         self.gen_dice_images()
         self.startGame()
 
-
-
         #This button rolls the dice and displays the dice afterwards
         self.rollBtn = Button(self, text='ROLL', height=1, width=11, command=self.roll, font=('Verdana', 14), fg='white',
                          bg='brown')
@@ -222,6 +220,7 @@ class MainWindow(tk.Frame):
         self.startDice()
 
     def restartGame(self):
+        self.infoMessage.set('')
         self.rollBtn.config(state='normal')
         self.player1 = None
         self.clearAllLabels()
@@ -242,7 +241,7 @@ class MainWindow(tk.Frame):
         self.totalMsg.set(self.player1.score)
         print(self.player1.bonus)
 
-        if self.player1.bonusSum >= 23:
+        if self.player1.bonusSum >= 63:
             self.bonusMsg.set('50')
             print(self.player1.bonus)
             self.player1.score += self.player1.bonus
@@ -458,7 +457,7 @@ class YatziValidor(object):
         elif mode == 5 and len(repetitions) == 1 and [x.value for x in currDice].count(repetitions[0]) >= 4:
             return repetitions[0] * 4
         else:
-                return 0
+            return 0
 
     def pair(currDice):
         return YatziValidor.topMatches(currDice,2,1)
