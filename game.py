@@ -434,29 +434,31 @@ class YatziValidor(object):
     def singleNumbers(currDice, number):
         return sum(i for i in [x.value for x in currDice if x.value == number])
 
-    def topMatches(currDice, nrOfOccurrances, mode): #mode 1 for 2,3 or 4 of a kind. mode 2 for two pairs. mode 3 for full house
-        diceSet = set([x.value for x in currDice])
+    def topMatches(currDice, nrOfOccurrances, mode):    #mode 1 for 2,3 or 4 of a kind. mode 2 for two pairs. mode 3 for full house
+        diceSet = set([x.value for x in currDice])      #mode 4 three of a kind. mode 5 = four of a kind
         repetitions = [y for y in diceSet if [x.value for x in currDice].count(y) >= nrOfOccurrances]
         if mode == 1 and len(repetitions) >= 1:
             return max(repetitions)*2
-        elif mode == 2 and len(repetitions) == 2:
-            return sum(repetitions)*2
-        elif mode == 2 and len(repetitions) == 1 and [x.value for x in currDice].count(repetitions[0]) >= 4:
-            return max(repetitions)*4
+        if mode == 2:
+            if len(repetitions) == 2:
+                return sum(repetitions)*2
+            elif len(repetitions) == 1 and [x.value for x in currDice].count(repetitions[0]) >= 4:
+                return max(repetitions)*4
+            else:
+                return 0
         elif mode == 3 and len(repetitions) == 2 and ([x.value for x in currDice].count(repetitions[0]) == 3 or [x.value for x in currDice].count(repetitions[0])== 2):
             return YatziValidor.chance(currDice)
         elif mode == 4 and len(repetitions) <= 2:
             if ([x.value for x in currDice].count(repetitions[0]) >= 3):
                 return repetitions[0] * 3
-            else:
+            elif ([x.value for x in currDice].count(repetitions[1]) >= 3):
                 return repetitions[1] * 3
-        elif mode == 5 and len(repetitions) <= 2:
-            if ([x.value for x in currDice].count(repetitions[0]) >= 4):
-                return repetitions[0] * 4
             else:
-                return repetitions[1] * 4
+                return 0
+        elif mode == 5 and len(repetitions) == 1 and [x.value for x in currDice].count(repetitions[0]) >= 4:
+            return repetitions[0] * 4
         else:
-            return 0
+                return 0
 
     def pair(currDice):
         return YatziValidor.topMatches(currDice,2,1)
@@ -466,7 +468,8 @@ class YatziValidor(object):
             return YatziValidor.topMatches(currDice,4,1)
         elif YatziValidor.topMatches(currDice,2,2) != 0:
             return YatziValidor.topMatches(currDice,2,2)
-
+        else:
+            return 0
     def threeOfaKind(currDice):
         return YatziValidor.topMatches(currDice,3,4)
 
