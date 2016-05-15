@@ -120,8 +120,9 @@ class MainWindow(tk.Frame):
         self.bonusBtn = Button(self, text='Bonus', height=1, width=13, state='disabled', font=('Verdana', scoreBoardFontSize),
                                fg='black', bg='white')
         self.bonusBtn.place(x=scoreBoardBtnXcord, y=300)
-
-        self.bonusLabel = Label(self, font=('Verdana', 12), width=10, fg="green", bg='white')
+        self.bonusMsg = StringVar()
+        self.bonusMsg.set('')
+        self.bonusLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.bonusMsg, fg="green", bg='white')
         self.bonusLabel.place(x=scoreBoardLabelXcord, y=300)
 
         self.onePairBtn = Button(self, text='One Pair', height=1, width=13, command=lambda: self.validateOnePair(), font=('Verdana', scoreBoardFontSize), fg='black',
@@ -226,6 +227,7 @@ class MainWindow(tk.Frame):
         for i in self.allButtons:
             i[2].set('')
         self.totalMsg.set('0')
+        self.sumMsg.set('0')
 
     def validateUpperSix(self, n):
 
@@ -235,6 +237,13 @@ class MainWindow(tk.Frame):
         self.player1.bonusSum += YatziValidor.singleNumbers(self.player1.currentDice, n)
         self.sumMsg.set(self.player1.bonusSum)
         self.totalMsg.set(self.player1.score)
+        print(self.player1.bonus)
+
+        if self.player1.bonusSum >= 23:
+            self.bonusMsg.set('50')
+            print(self.player1.bonus)
+            self.player1.score += self.player1.bonus
+            self.player1.bonus = 0
         self.endTurn()
 
     def validateOnePair(self):
@@ -390,11 +399,11 @@ class Die(object):
 
 class Player(object):
     def __init__(self):
+        self.bonus = 50
         self.score = 0
         self.turnsLeft = 15
         self.throwsLeft = 3
         self.currentDice = []
-        #self.selectedDice = []
         self.validator = YatziValidor()
         self.bonusSum = 0
         self.combos_used = []
