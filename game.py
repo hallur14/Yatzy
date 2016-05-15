@@ -31,8 +31,7 @@ class MainWindow(tk.Frame):
         scoreBoardLabelXcord = 330
 
         self.gen_dice_images()
-        self.player1 = Player()
-        self.startDice()
+        self.startGame()
 
         #Label Messages
         self.infoMessage = StringVar()
@@ -52,7 +51,7 @@ class MainWindow(tk.Frame):
         self.rollBtn.place(x=40, y=20)
 
         #This button restarts your game
-        self.restartBtn = Button(self, text='\R\n\n\n\ne\ns\nt\na\nr\nt', height=5, width=3, font=('Verdana', 14), fg='white',
+        self.restartBtn = Button(self, text='\R\n\n\n\ne\ns\nt\na\nr\nt', command=self.restartGame, height=5, width=3, font=('Verdana', 14), fg='white',
                          bg='brown')
         self.restartBtn.place(x=460, y=90)
 
@@ -213,6 +212,20 @@ class MainWindow(tk.Frame):
         self.totalBtn.place(x=scoreBoardBtnXcord, y=600)
         self.totalLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.totalMsg, fg="green", bg='white')
         self.totalLabel.place(x=scoreBoardLabelXcord, y=600)
+
+    def startGame(self):
+        self.player1 = Player()
+        self.startDice()
+
+    def restartGame(self):
+        self.player1 = None
+        self.clearAllLabels()
+        self.startGame()
+
+    def clearAllLabels(self):
+        for i in self.allButtons:
+            i[2].set('')
+        self.totalMsg.set('0')
 
     def validateUpperSix(self, n):
 
