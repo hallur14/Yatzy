@@ -31,6 +31,9 @@ class MainWindow(tk.Frame):
         scoreBoardLabelXcord = 330
 
         self.gen_dice_images()
+        self.bkIMG = PhotoImage(file=os.path.join('bkgrnd.png'))
+        self.background = Label(self, image=self.bkIMG)
+        self.background.grid()
         self.startGame()
 
         #This button rolls the dice and displays the dice afterwards
@@ -39,9 +42,9 @@ class MainWindow(tk.Frame):
         self.rollBtn.place(x=40, y=20)
 
         #This button restarts your game
-        self.restartBtn = Button(self, text='R\ne\ns\nt\na\nr\nt', command=self.restartGame, height=5, width=3, font=('Verdana', 14), fg='white',
+        self.restartBtn = Button(self, text='Restart Game', command=self.restartGame, height=1, width=12, font=('Verdana', 14), fg='white',
                          bg='brown')
-        self.restartBtn.place(x=460, y=90)
+        self.restartBtn.place(x=350, y=674)
 
         #This section has buttons and labels for the scoreboard
         self.acesBtn = Button(self, text='Aces', height=1, width=13, command=lambda: self.validateUpperSix(1),
@@ -239,11 +242,9 @@ class MainWindow(tk.Frame):
         self.player1.bonusSum += YatziValidor.singleNumbers(self.player1.currentDice, n)
         self.sumMsg.set(self.player1.bonusSum)
         self.totalMsg.set(self.player1.score)
-        print(self.player1.bonus)
 
         if self.player1.bonusSum >= 63:
             self.bonusMsg.set('50')
-            print(self.player1.bonus)
             self.player1.score += self.player1.bonus
             self.player1.bonus = 0
         self.endTurn()
@@ -320,13 +321,11 @@ class MainWindow(tk.Frame):
         self.infoMessage.set('Press ROLL to get your dice!')
         self.turnMessage.set('You have ' + str(self.player1.throwsLeft) + ' remaining rolls this turn')
 
-        print(self.player1.turnsLeft)
         if self.player1.turnsLeft > 0:
             self.rollBtn.config(state='normal')
 
         self.disableAllButtons()
         self.startDice()
-
 
     #This functions displays the state of the current dice
     def displayDice(self):
@@ -366,6 +365,7 @@ class MainWindow(tk.Frame):
 
         if self.player1.throwsLeft == 0:
             self.rollBtn.config(state='disabled')
+            self.turnMessage.set('')
             self.turnMessage.set('You are out off rolls this round!')
 
     def startDice(self):
@@ -419,7 +419,6 @@ class Player(object):
     def PlayerRoll(self):
         self.throwsLeft -= 1
         for i in self.currentDice:
-            #print(i.hold)
             if not i.hold:
                 i.value = i.getOneNum()
 
@@ -505,4 +504,5 @@ class YatziValidor(object):
 app = game()
 app.geometry("%dx%d+0+0" %(530,720))
 app.resizable(width=False, height=False)
+app.title('Yatzy For The Lonely')
 app.mainloop()
