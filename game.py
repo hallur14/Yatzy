@@ -42,8 +42,8 @@ class MainWindow(tk.Frame):
         self.rollBtn.place(x=40, y=20)
 
         #This button restarts your game
-        self.restartBtn = Button(self, text='Restart Game', command=self.restartGame, height=1, width=12, font=('Verdana', 14), fg='white',
-                         bg='brown')
+        self.restartBtn = Button(self, text='Restart Game', command=self.restartGame, height=1, width=12,
+                                 font=('Verdana', 14), fg='white', bg='brown')
         self.restartBtn.place(x=350, y=674)
 
         #This section has buttons and labels for the scoreboard
@@ -56,11 +56,13 @@ class MainWindow(tk.Frame):
         self.acesLabel.place(x=scoreBoardLabelXcord, y=90)
         self.allButtons.append((self.acesBtn, self.acesLabel, self.acesMsg))
 
-        self.deucesBtn = Button(self, text='Deuces', height=1, width=13, command=lambda: self.validateUpperSix(2), font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
+        self.deucesBtn = Button(self, text='Deuces', height=1, width=13, command=lambda: self.validateUpperSix(2),
+                                font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
         self.deucesBtn.place(x=scoreBoardBtnXcord, y=120)
         self.deucesMsg = StringVar()
         self.deucesMsg.set('')
-        self.deucesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.deucesMsg, fg="green", bg='white')
+        self.deucesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.deucesMsg, fg="green",
+                                 bg='white')
         self.deucesLabel.place(x=scoreBoardLabelXcord, y=120)
         self.allButtons.append((self.deucesBtn, self.deucesLabel, self.deucesMsg))
 
@@ -69,7 +71,8 @@ class MainWindow(tk.Frame):
         self.threesBtn.place(x=scoreBoardBtnXcord, y=150)
         self.threesMsg = StringVar()
         self.threesMsg.set('')
-        self.threesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.threesMsg, fg="green", bg='white')
+        self.threesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.threesMsg, fg="green",
+                                 bg='white')
         self.threesLabel.place(x=scoreBoardLabelXcord, y=150)
         self.allButtons.append((self.threesBtn, self.threesLabel, self.threesMsg))
 
@@ -78,7 +81,8 @@ class MainWindow(tk.Frame):
         self.fouresBtn.place(x=scoreBoardBtnXcord, y=180)
         self.fouresMsg = StringVar()
         self.fouresMsg.set('')
-        self.fouresLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.fouresMsg, fg="green", bg='white')
+        self.fouresLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.fouresMsg, fg="green",
+                                 bg='white')
         self.fouresLabel.place(x=scoreBoardLabelXcord, y=180)
         self.allButtons.append((self.fouresBtn,self.fouresLabel, self.fouresMsg))
 
@@ -87,7 +91,8 @@ class MainWindow(tk.Frame):
         self.fivesBtn.place(x=scoreBoardBtnXcord, y=210)
         self.fivesMsg = StringVar()
         self.fivesMsg.set('')
-        self.fivesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.fivesMsg, fg="green", bg='white')
+        self.fivesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.fivesMsg, fg="green",
+                                bg='white')
         self.fivesLabel.place(x=scoreBoardLabelXcord, y=210)
         self.allButtons.append((self.fivesBtn,self.fivesLabel, self.fivesMsg))
 
@@ -96,7 +101,8 @@ class MainWindow(tk.Frame):
         self.sixesBtn.place(x=scoreBoardBtnXcord, y=240)
         self.sixesMsg = StringVar()
         self.sixesMsg.set('')
-        self.sixesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.sixesMsg, fg="green", bg='white')
+        self.sixesLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.sixesMsg, fg="green",
+                                bg='white')
         self.sixesLabel.place(x=scoreBoardLabelXcord, y=240)
         self.allButtons.append((self.sixesBtn, self.sixesLabel, self.sixesMsg))
 
@@ -105,95 +111,109 @@ class MainWindow(tk.Frame):
         self.sumBtn.place(x=scoreBoardBtnXcord, y=270)
         self.sumMsg = StringVar()
         self.sumMsg.set('0')
-        self.sumLabel = Label(self, font=('Verdana', 12), width=10,textvariable=self.sumMsg, fg="green", bg='white')
+        self.sumLabel = Label(self, font=('Verdana', 12), width=10,textvariable=self.sumMsg, fg="green",
+                              bg='white')
         self.sumLabel.place(x=scoreBoardLabelXcord, y=270)
 
-        self.bonusBtn = Button(self, text='Bonus', height=1, width=13, state='disabled', font=('Verdana', scoreBoardFontSize),
-                               fg='black', bg='white')
+        self.bonusBtn = Button(self, text='Bonus', height=1, width=13, state='disabled',
+                               font=('Verdana', scoreBoardFontSize), fg='black', bg='white')
         self.bonusBtn.place(x=scoreBoardBtnXcord, y=300)
         self.bonusMsg = StringVar()
         self.bonusMsg.set('')
-        self.bonusLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.bonusMsg, fg="green", bg='white')
+        self.bonusLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.bonusMsg, fg="green",
+                                bg='white')
         self.bonusLabel.place(x=scoreBoardLabelXcord, y=300)
 
-        self.onePairBtn = Button(self, text='One Pair', height=1, width=13, command=lambda: self.validateOnePair(), font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white',state = 'disabled')
+        self.onePairBtn = Button(self, text='One Pair', height=1, width=13, command=lambda: self.validateOnePair(),
+                                 font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
         self.onePairBtn.place(x=scoreBoardBtnXcord, y=330)
         self.onePairMsg = StringVar()
         self.onePairMsg.set('')
-        self.onePairLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.onePairMsg, fg="green", bg='white')
+        self.onePairLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.onePairMsg, fg="green",
+                                  bg='white')
         self.onePairLabel.place(x=scoreBoardLabelXcord, y=330)
         self.allButtons.append((self.onePairBtn, self.onePairLabel, self.onePairMsg))
 
-        self.twoPairBtn = Button(self, text='Two Pair', height=1, width=13, command=lambda: self.validateTwoPair(),font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white',state = 'disabled')
+        self.twoPairBtn = Button(self, text='Two Pair', height=1, width=13, command=lambda: self.validateTwoPair(),
+                                 font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
         self.twoPairBtn.place(x=scoreBoardBtnXcord, y=360)
         self.twoPairMsg = StringVar()
         self.twoPairMsg.set('')
-        self.twoPairLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.twoPairMsg, fg="green", bg='white')
+        self.twoPairLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.twoPairMsg, fg="green",
+                                  bg='white')
         self.twoPairLabel.place(x=scoreBoardLabelXcord, y=360)
         self.allButtons.append((self.twoPairBtn,self.twoPairLabel, self.twoPairMsg))
 
-        self.threeOfKindBtn = Button(self, text='Three of a kind', height=1, width=13, command=lambda: self.validateThreeOfaKind(), font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white',state = 'disabled')
+        self.threeOfKindBtn = Button(self, text='Three of a kind', height=1, width=13,
+                                     command=lambda: self.validateThreeOfaKind(), font=('Verdana', scoreBoardFontSize),
+                                     fg='black', bg='white',state = 'disabled')
         self.threeOfKindBtn.place(x=scoreBoardBtnXcord, y=390)
         self.threeOfKindMsg = StringVar()
         self.threeOfKindMsg.set('')
-        self.threeOfaKindLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.threeOfKindMsg, fg="green", bg='white')
+        self.threeOfaKindLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.threeOfKindMsg,
+                                       fg="green", bg='white')
         self.threeOfaKindLabel.place(x=scoreBoardLabelXcord, y=390)
         self.allButtons.append((self.threeOfKindBtn,self.threeOfaKindLabel, self.threeOfKindMsg))
 
-        self.fourOfKindBtn = Button(self, text='Four of a kind', height=1, width=13, command=lambda: self.validateFourOfaKind(), font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white',state = 'disabled')
+        self.fourOfKindBtn = Button(self, text='Four of a kind', height=1, width=13,
+                                    command=lambda: self.validateFourOfaKind(), font=('Verdana', scoreBoardFontSize),
+                                    fg='black', bg='white',state = 'disabled')
         self.fourOfKindBtn.place(x=scoreBoardBtnXcord, y=420)
         self.fourOfaKindMsg = StringVar()
         self.fourOfaKindMsg.set('')
-        self.fourOfaKindLabael = Label(self, font=('Verdana', 12), width=10,textvariable=self.fourOfaKindMsg, fg="green", bg='white')
-        self.fourOfaKindLabael.place(x=scoreBoardLabelXcord, y=420)
-        self.allButtons.append((self.fourOfKindBtn,self.fourOfaKindLabael,self.fourOfaKindMsg))
+        self.fourOfaKindLabel = Label(self, font=('Verdana', 12), width=10,textvariable=self.fourOfaKindMsg, fg="green", bg='white')
+        self.fourOfaKindLabel.place(x=scoreBoardLabelXcord, y=420)
+        self.allButtons.append((self.fourOfKindBtn,self.fourOfaKindLabel,self.fourOfaKindMsg))
 
-        self.smallStraightBtn = Button(self, text='Small Straight', height=1, width=13, command=lambda: self.validateLittleRow() ,font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white',state = 'disabled')
+        self.smallStraightBtn = Button(self, text='Small Straight', height=1, width=13,
+                                       command=lambda: self.validateLittleRow() ,font=('Verdana', scoreBoardFontSize),
+                                       fg='black', bg='white',state = 'disabled')
         self.smallStraightMsg = StringVar()
         self.smallStraightMsg.set('')
         self.smallStraightBtn.place(x=scoreBoardBtnXcord, y=450)
-        self.smallStraightLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.smallStraightMsg, fg="green", bg='white')
+        self.smallStraightLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.smallStraightMsg,
+                                        fg="green", bg='white')
         self.smallStraightLabel.place(x=scoreBoardLabelXcord, y=450)
         self.allButtons.append((self.smallStraightBtn,self.smallStraightLabel, self.smallStraightMsg))
 
-        self.largeStraightBtn = Button(self, text='Large Straight', height=1, width=13,command=lambda: self.validateBigRow() ,font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white',state = 'disabled')
+        self.largeStraightBtn = Button(self, text='Large Straight', height=1, width=13,
+                                       command=lambda: self.validateBigRow() ,font=('Verdana', scoreBoardFontSize),
+                                       fg='black', bg='white',state = 'disabled')
         self.largeStraightBtn.place(x=scoreBoardBtnXcord, y=480)
         self.largeStraightMsg = StringVar()
         self.largeStraightMsg.set('')
-        self.largeStraightLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.largeStraightMsg, fg="green", bg='white')
+        self.largeStraightLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.largeStraightMsg,
+                                        fg="green", bg='white')
         self.largeStraightLabel.place(x=scoreBoardLabelXcord, y=480)
         self.allButtons.append((self.largeStraightBtn, self.largeStraightLabel, self.largeStraightMsg))
 
-        self.fullHouse = Button(self, text='Full House', height=1, width=13, command=lambda: self.validateFullHouse(), font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white',state = 'disabled')
+        self.fullHouse = Button(self, text='Full House', height=1, width=13, command=lambda: self.validateFullHouse(),
+                                font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
         self.fullHouse.place(x=scoreBoardBtnXcord, y=510)
         self.fullHouseMsg= StringVar()
         self.fullHouseMsg.set('')
-        self.fullHouseLabel = Label(self, font=('Verdana', 12), width=10,textvariable=self.fullHouseMsg, fg="green", bg='white')
+        self.fullHouseLabel = Label(self, font=('Verdana', 12), width=10,textvariable=self.fullHouseMsg, fg="green",
+                                    bg='white')
         self.fullHouseLabel.place(x=scoreBoardLabelXcord, y=510)
         self.allButtons.append((self.fullHouse,self.fullHouseLabel, self.fullHouseMsg))
 
-        self.chanceBtn = Button(self, text='Chance', height=1, width=13, command=lambda: self.validateChance(),font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white',state = 'disabled')
+        self.chanceBtn = Button(self, text='Chance', height=1, width=13, command=lambda: self.validateChance(),
+                                font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
         self.chanceMsg = StringVar()
         self.chanceMsg.set('')
         self.chanceBtn.place(x=scoreBoardBtnXcord, y=540)
-        self.chanceLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.chanceMsg, fg="green", bg='white')
+        self.chanceLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.chanceMsg, fg="green",
+                                 bg='white')
         self.chanceLabel.place(x=scoreBoardLabelXcord, y=540)
         self.allButtons.append((self.chanceBtn, self.chanceLabel, self.chanceMsg))
 
-        self.yatzyBtn = Button(self, text='Yatzi', height=1, width=13, command=lambda: self.validateYatzy(),font=('Verdana', scoreBoardFontSize), fg='black',
-                         bg='white',state = 'disabled')
+        self.yatzyBtn = Button(self, text='Yatzi', height=1, width=13, command=lambda: self.validateYatzy(),
+                               font=('Verdana', scoreBoardFontSize), fg='black', bg='white',state = 'disabled')
         self.yatzyMsg = StringVar()
         self.yatzyMsg.set('')
         self.yatzyBtn.place(x=scoreBoardBtnXcord, y=570)
-        self.yatzyLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.yatzyMsg, fg="green", bg='white')
+        self.yatzyLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.yatzyMsg, fg="green",
+                                bg='white')
         self.yatzyLabel.place(x=scoreBoardLabelXcord, y=570)
         self.allButtons.append((self.yatzyBtn, self.yatzyLabel, self.yatzyMsg))
 
@@ -202,7 +222,8 @@ class MainWindow(tk.Frame):
         self.totalMsg = StringVar()
         self.totalMsg.set('0')
         self.totalBtn.place(x=scoreBoardBtnXcord, y=600)
-        self.totalLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.totalMsg, fg="green", bg='white')
+        self.totalLabel = Label(self, font=('Verdana', 12), width=10, textvariable=self.totalMsg, fg="green",
+                                bg='white')
         self.totalLabel.place(x=scoreBoardLabelXcord, y=600)
 
     def startGame(self):
@@ -215,9 +236,9 @@ class MainWindow(tk.Frame):
         self.turnMessage.set('You have ' + str(self.player1.throwsLeft) + ' remaining rolls this turn')
 
         #Labels
-        infoLabel1 = Label(self, textvariable=self.infoMessage, font=('Verdana', 11), fg='black')
-        infoLabel1.place(x=200, y=25)
-        turnLabell = Label(self, textvariable=self.turnMessage, font=('Verdana', 11))
+        infoLabel1 = Label(self, textvariable=self.infoMessage, font=('Verdana', 11), fg='white', bg='green')
+        infoLabel1.place(x=200, y=28)
+        turnLabell = Label(self, textvariable=self.turnMessage, font=('Verdana', 11), fg='white', bg='green')
         turnLabell.place(x=40, y=690)
 
         self.startDice()
@@ -323,12 +344,12 @@ class MainWindow(tk.Frame):
         self.infoMessage.set('Press ROLL to get your dice!')
         self.turnMessage.set('You have ' + str(self.player1.throwsLeft) + ' remaining rolls this turn')
 
-        print(self.player1.turnsLeft)
-
         if self.player1.turnsLeft > 0:
             self.rollBtn.config(state='normal')
         else:
             self.rollBtn.config(state='disable')
+            self.turnMessage.set('')
+            self.turnMessage.set('Game Over! Your total score is ' + str(self.player1.score))
 
         self.disableAllButtons()
         self.startDice()
