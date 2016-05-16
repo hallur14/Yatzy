@@ -31,9 +31,9 @@ class MainWindow(tk.Frame):
         scoreBoardLabelXcord = 330
 
         self.gen_dice_images()
-        self.bkIMG = PhotoImage(file=os.path.join('bkgrnd.png'))
-        self.background = Label(self, image=self.bkIMG)
-        self.background.grid()
+        #self.bkIMG = PhotoImage(file=os.path.join('bkgrnd.png'))
+        self.background = Label(self, background='green', height=100, width=100)
+        self.background.place(x=0, y=0)
         self.startGame()
 
         #This button rolls the dice and displays the dice afterwards
@@ -215,7 +215,7 @@ class MainWindow(tk.Frame):
         self.turnMessage.set('You have ' + str(self.player1.throwsLeft) + ' remaining rolls this turn')
 
         #Labels
-        infoLabel1 = Label(self, textvariable=self.infoMessage, font=('Verdana', 11), fg="green")
+        infoLabel1 = Label(self, textvariable=self.infoMessage, font=('Verdana', 11), fg='black')
         infoLabel1.place(x=200, y=25)
         turnLabell = Label(self, textvariable=self.turnMessage, font=('Verdana', 11))
         turnLabell.place(x=40, y=690)
@@ -234,6 +234,7 @@ class MainWindow(tk.Frame):
             i[2].set('')
         self.totalMsg.set('0')
         self.sumMsg.set('0')
+        self.bonusMsg.set('')
 
     def validateUpperSix(self, n):
         self.player1.combos_used.append(n)
@@ -247,6 +248,7 @@ class MainWindow(tk.Frame):
             self.bonusMsg.set('50')
             self.player1.score += self.player1.bonus
             self.player1.bonus = 0
+            self.totalMsg.set(self.player1.score)
         self.endTurn()
 
     def validateOnePair(self):
@@ -321,8 +323,12 @@ class MainWindow(tk.Frame):
         self.infoMessage.set('Press ROLL to get your dice!')
         self.turnMessage.set('You have ' + str(self.player1.throwsLeft) + ' remaining rolls this turn')
 
+        print(self.player1.turnsLeft)
+
         if self.player1.turnsLeft > 0:
             self.rollBtn.config(state='normal')
+        else:
+            self.rollBtn.config(state='disable')
 
         self.disableAllButtons()
         self.startDice()
@@ -341,7 +347,7 @@ class MainWindow(tk.Frame):
             var.set(int(i.hold))
 
             check = Checkbutton(self, image=self.dice[i.value], selectimage=self.diceH[i.value], height=100,
-                                width=100, variable = var, command = i.switch)
+                                width=100, bg='green', variable = var, command = i.switch)
             check.place(x=41, y=(n*120)+85)
             check.var = var
 
@@ -370,7 +376,7 @@ class MainWindow(tk.Frame):
 
     def startDice(self):
         for i in range(5):
-            check = Checkbutton(self, image=self.dice[0], height=100, width=100)
+            check = Checkbutton(self, image=self.dice[0], height=100, width=100, bg='green')
             check.place(x=41, y=(i*120)+85)
 
     def enableUnused(self, allButtons):
@@ -502,7 +508,7 @@ class YatziValidor(object):
             return 0
 
 app = game()
-app.geometry("%dx%d+0+0" %(530,720))
+app.geometry("%dx%d+0+0" %(520,730))
 app.resizable(width=False, height=False)
 app.title('Yatzy For The Lonely')
 app.mainloop()
